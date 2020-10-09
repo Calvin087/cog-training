@@ -17,6 +17,7 @@
   - [Functions (new)](#functions-new)
     - [Positional arguemnts](#positional-arguemnts)
     - [Default Values as Variables](#default-values-as-variables)
+- [Intermediate Section.](#intermediate-section)
   - [Lambda Functions](#lambda-functions)
 
 <br>
@@ -616,4 +617,37 @@ A good reason to not use this one. Better practice would be to define it in the 
 
 Too risky and confusing for others.
 
+<br>
+
+# Intermediate Section.
+All the things I don't have a clue about. Coffee break.
+
+<br>
+
 ## Lambda Functions
+
+<br>
+
+Doesn't have a NAME and is only used to return VALUES. They **only** RETURN values, so a return is not written, it's implicit.
+
+```py
+lambda arg1, arg2 : arg1 + arg2
+```
+
+These have no names, so you CAN assign them to variables.
+
+```py
+add = lambda arg1, arg2 : arg1 + arg2
+```
+
+```py
+
+add = lambda arg1, arg2 : arg1 + arg2
+
+add(4, 4)
+
+# >> 8 ???!!!
+
+```
+
+They are **supposed** to be **short** and **simple** with **NO NAME**

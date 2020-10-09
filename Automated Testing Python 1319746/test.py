@@ -1,16 +1,15 @@
 # ctrl alt m - terminate code runner
 print("\n") # formatting
 
-default_num = 4
+def add(x, y):
+    return x + y
 
-def add(num1, num2=default_num):
-    sum = num1 + num2
-    print(sum)
+print(add(4, 4))
 
-add(4)
+# ReWriting this as a Lambda
 
-default_num = 10
+add = lambda arg1, arg2 :  arg1 + arg2
 
-add(4)
+add(4, 4)
 
 print("\n") # formatting
