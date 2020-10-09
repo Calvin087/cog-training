@@ -5,6 +5,8 @@
   - [User Input + Int / Str](#user-input--int--str)
   - [Lists / Tuples / Sets](#lists--tuples--sets)
   - [Sets - Additional Methods](#sets---additional-methods)
+  - [Booleans](#booleans)
+  - [In Keyword + If Statements](#in-keyword--if-statements)
 
 <br>
 
@@ -150,6 +152,62 @@ print(both)
 # >> {'steve', 'jon', 'rudy'}
 
 ```
+---
+
+<br>
+
+## Booleans
+
+The two lists below contain the same data and in the same format ```lists```. The ```is``` keyword checks if the two elements are the same thing in memory, not if they equal the same as in values.
+
+**BUT**
+
+The reccommended way to check values would be to use double ```==``` sign. NOT ```is```.
+
+```py
+
+psychology = ["jon", "sam", "steve", "rudy"]
+history = ["jon", "sam", "steve", "rudy"]
+
+print(psychology is history)
+print(history is history)
+
+# >> False
+# >> True
+
+```
+
+<br>
+
+---
+
+<br>
+
+
+## In Keyword + If Statements
+
+Works in ```lists```, ```tuples``` and ```sets```. Returns a ```boolen```.
+
+```py
+
+history = ["jon", "sam", "steve", "rudy"]
+
+print("jon" in history)
+
+# >> True
+
+---
+
+name = "jon"
+history = ["jon", "sam", "steve", "rudy"]
+
+if name in history:
+    print("jon" in history)
+
+# >> True
+
+```
 
 
 
+<br>
