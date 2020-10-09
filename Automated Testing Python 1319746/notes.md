@@ -7,6 +7,9 @@
   - [Sets - Additional Methods](#sets---additional-methods)
   - [Booleans](#booleans)
   - [In Keyword + If Statements](#in-keyword--if-statements)
+  - [Loops](#loops)
+  - [List Comprehensions (gooood shortcuts)](#list-comprehensions-gooood-shortcuts)
+    - [startswith()](#startswith)
 
 <br>
 
@@ -133,6 +136,9 @@ print(invite_for_drinks1)
 my_money = {20, 100, 300, 2021}
 her_money = {20, 400, 2300}
 
+sum(my_money)
+# A reminder of the sum function >> 2441
+
 together = my_money.union(her_money)
 # merges both together but removes DUPES
 
@@ -157,6 +163,8 @@ print(both)
 <br>
 
 ## Booleans
+
+<br>
 
 The two lists below contain the same data and in the same format ```lists```. The ```is``` keyword checks if the two elements are the same thing in memory, not if they equal the same as in values.
 
@@ -183,8 +191,9 @@ print(history is history)
 
 <br>
 
-
 ## In Keyword + If Statements
+
+<br>
 
 Works in ```lists```, ```tuples``` and ```sets```. Returns a ```boolen```.
 
@@ -199,15 +208,105 @@ print("jon" in history)
 ---
 
 name = "jon"
+
 history = ["jon", "sam", "steve", "rudy"]
 
 if name in history:
-    print("jon" in history)
+    print(f"{name} studies history")
+else:
+    print("no")
 
-# >> True
+# >> jon studies history
 
 ```
 
+<br>
 
+---
 
 <br>
+
+## Loops
+
+<br>
+
+Only new idea here is to start using ```break``` in my loops.
+
+```py
+
+while True:
+    print("something something")
+    break
+
+# prints Once instead of infinately.
+  ```
+
+```While True``` creates an infinite ```loop``` that will continue until the user or something else changes the ```boolean``` to ```False```.
+
+This can be a pain but once the it hits a ```break```, this automatically stops the entire process and continues past this code block.
+
+Below, usual ```foor loop``` using ```in```.
+
+```py
+
+history = ["jon", "sam", "steve", "rudy"]
+
+for name in history:
+    print(f"{name} studies history")
+
+# >> jon studies history
+# >> sam studies history
+# >> steve studies history
+# >> rudy studies history
+
+```
+
+---
+
+<br>
+
+## List Comprehensions (gooood shortcuts)
+
+<br>
+
+Interesting idea on making ```lists``` using calculations inside an empty brackets.
+
+```py
+
+nums = [20, 100, 300, 2021]
+
+doubled = [i * 2 for i in nums]
+# an empty list being filled using an equation AND a for loop
+
+combined = sum(doubled)
+
+print(doubled)
+print(combined)
+
+# >> [40, 200, 600, 4042]
+# >> 4882
+
+```
+
+This is quite a useful idea. One to remember.
+
+### startswith()
+
+```py
+
+friends = ["Jon", "Sam", "Steve", "Rudy"]
+
+friends_with_S = [friend for friend in friends if friend.startswith("S")]
+
+friends_with_J = [x for x in friends if x.startswith("J")]
+# looks like first and second parameters need to be the same, then the thing i'm searching, then if statement
+
+print(friends_with_S)
+print(friends_with_J)
+
+# >> ['Sam', 'Steve']
+# >> ['Jon']
+
+# Same seems to work with {} + ()
+
+```
