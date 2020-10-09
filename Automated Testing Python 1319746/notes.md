@@ -13,6 +13,9 @@
   - [Dictionaries](#dictionaries)
     - [Lists of Dictionaries](#lists-of-dictionaries)
     - [For Loops in Dictionaries / .values() .keys() / items()](#for-loops-in-dictionaries--values-keys--items)
+  - [Destructuring Variables](#destructuring-variables)
+  - [Functions (new)](#functions-new)
+    - [Positional arguemnts](#positional-arguemnts)
 
 <br>
 
@@ -383,7 +386,10 @@ You have to first locate the item in the LIST using index numbers and [] notatio
 
 ### For Loops in Dictionaries / .values() .keys() / items()
 
-.items() gives us all the items in the dictionary.
+I suppose this is how we access the value - by using .items() gives us all the items in the dictionary.
+
+But this doesn't really help with ```Lists``` of ```Dictionaries```
+
 <br>
 
 ```py
@@ -407,3 +413,164 @@ print(friends.values())
 ```
 
 <br>
+
+---
+
+<br>
+
+## Destructuring Variables
+
+Just like in the last section with .items() being used. We can destructure the tuples that are returned by looping and printing the dictionary.
+
+```py
+
+friends = {"Jon" : 24, "Sam" : 36, "Steve" : 41, "Rudy" : 33}
+
+for friend in friends.items():
+    print(f"{friend}")
+
+# These are ```Tuples```
+# >> ('Jon', 24)
+# >> ('Sam', 36)
+# >> ('Steve', 41)
+# >> ('Rudy', 33)
+
+```
+
+Now that I have a list of Tuples which have two items inside of them, I can extract them (destructure) and assign them elsewhere.
+
+Looping over a list of ```tuples```.
+```py
+
+friend_speeds = [("Jon", 24, "Fast"), ("Sam", 36, "Slow")]
+
+for name, age, speed in friend_speeds:
+    print(f"{name} is {age} years old and {speed}")
+
+```
+The same as Javascript, we can define the names with commas between and place the variable we are unpacking/destructuring at the end
+
+```py
+
+person = ("Bob", 42, "Dr")
+
+name, _, profession = person
+
+print(name)
+print(_) # <----
+print(profession
+
+# >> Bob
+# >> 42  <----
+# >> Dr
+
+```
+
+The ```_``` still prints out the value it's assigned to but because of it's appearance, the community have decided that ```_``` is universally ignored.
+
+So that's how we know that it's not to be used.
+
+The ```*``` seems to act as some kind of collector, like ```rest```. 
+
+```py
+
+head, mid, *tail = [1, 2, 3, 4]
+
+print(head)
+print(mid)
+print(tail)
+
+# >>  1
+# >>  2
+# >> [3, 4]
+
+*head, mid, tail = [1, 2, 3, 4]
+
+print(head)
+print(mid)
+print(tail)
+
+# >> [1, 2]
+# >> 3
+# >> 4
+
+```
+
+---
+
+<br>
+
+## Functions (new)
+
+<br>
+
+Something to note is not to reuse variable names even inside functions. This may be valid in other languages but not ```Python```.
+
+```py
+
+book_name = "Power" # <--
+
+def read_a_book():
+    book_name = book_name + "something" # <--
+
+```
+
+The variable scope is a little different here than JS and variables seem to be reachable in various ways inside functions. There will be a crash.
+
+```py
+
+book_name = "Power" # <--
+
+def read_a_book():
+    book_name = book_name + "something" # <--
+
+```
+
+As always, make sure to define functions before you call them, and define variables before defining functions to be on the safe side.
+
+```PASS``` means do nothing?? Need to know when to use this.
+
+```py
+
+book_name = "Power" # <--
+
+def read_a_book():
+    pass
+
+```
+
+Arguments work the same as JS
+
+```py
+
+def read_a_book(whichBook, when):
+    print(f"start reading {whichBook} {when}")
+
+
+
+read_a_book("Chicken Lickin", "now")
+
+# >> Chicken Lickin now
+
+
+```
+
+### Positional arguemnts
+
+*This seems interesting.*
+
+It actually makes more sense this way, but maybe it's just faster to do it the other way?
+
+```py
+
+def find_book_quote(title, when, page):
+    print(f"Go to page {page} in {title}, {when}")
+
+
+find_book_quote(when="now", page="14", title="Chicken Lickin") # <-- no space before = or after
+
+# >> Go to page 14 in Chicken Lickin now
+
+```
+
+So regardless of which order I pass the arguments, I'm able to specify the names of the arguments which in turn makes their position unimportant.

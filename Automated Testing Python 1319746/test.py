@@ -1,12 +1,11 @@
 # ctrl alt m - terminate code runner
 print("\n") # formatting
 
-friends = {"Jon" : 24, "Sam" : 36, "Steve" : 41, "Rudy" : 33}
+def find_book_quote(title, when, page):
+    print(f"Go to page {page} in {title}, {when}")
 
-print(friends.keys())
-print(friends.values())
 
-# print(address_book[0]["name"])
-# print(address_book[2]["age"])
+find_book_quote(when = "now", page = "14", title = "Chicken Lickin") # <-- no space before = or after
+
 
 print("\n") # formatting
