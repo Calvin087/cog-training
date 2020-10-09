@@ -16,6 +16,8 @@
   - [Destructuring Variables](#destructuring-variables)
   - [Functions (new)](#functions-new)
     - [Positional arguemnts](#positional-arguemnts)
+    - [Default Values as Variables](#default-values-as-variables)
+  - [Lambda Functions](#lambda-functions)
 
 <br>
 
@@ -519,10 +521,13 @@ The variable scope is a little different here than JS and variables seem to be r
 
 ```py
 
-book_name = "Power" # <--
+read_a_book() # <-- ERROR
 
 def read_a_book():
-    book_name = book_name + "something" # <--
+    print("do something")
+
+
+read_a_book() # <-- Good
 
 ```
 
@@ -574,3 +579,41 @@ find_book_quote(when="now", page="14", title="Chicken Lickin") # <-- no space be
 ```
 
 So regardless of which order I pass the arguments, I'm able to specify the names of the arguments which in turn makes their position unimportant.
+
+### Default Values as Variables
+
+Probably bad, but new.
+
+Haven't seen this before but could be useful. Assigning a value to a variable and then using that as a default.
+
+This possibly makes things harder to test when you're not sure of the orig variable. Side effects possibly?
+
+**BUT**
+
+Reassigning the Variable after it's been used as a default, does not change the value!! Interesting.
+
+```py
+
+default_num = 4
+
+def add(num1, num2=default_num):
+    sum = num1 + num2
+    print(sum)
+
+add(4)
+
+# >> 8
+
+default_num = 10
+
+add(4)
+
+# >> 8 ?????!!!!
+
+```
+
+A good reason to not use this one. Better practice would be to define it in the function rather than using a variable.
+
+Too risky and confusing for others.
+
+## Lambda Functions
