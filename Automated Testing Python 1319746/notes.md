@@ -10,6 +10,9 @@
   - [Loops](#loops)
   - [List Comprehensions (gooood shortcuts)](#list-comprehensions-gooood-shortcuts)
     - [startswith()](#startswith)
+  - [Dictionaries](#dictionaries)
+    - [Lists of Dictionaries](#lists-of-dictionaries)
+    - [For Loops in Dictionaries / .values() .keys() / items()](#for-loops-in-dictionaries--values-keys--items)
 
 <br>
 
@@ -310,3 +313,97 @@ print(friends_with_J)
 # Same seems to work with {} + ()
 
 ```
+
+This basically removes the need for us to do .append() where it's not absolutely necessary
+
+---
+
+<br>
+
+## Dictionaries
+
+These look a lot like objects in Javascript, but work quite differently.
+
+Again like ```Ruby``` these are called key value pairs.
+
+```py
+
+friends = {"Jon" : 24, "Sam" : 36, "Steve" : 41, "Rudy" : 33}
+
+print(friends["Jon"])
+print(friends[0])
+
+# >> 24
+# >> Error
+
+```
+
+You can't access the elements of the ```Dictionary``` using index or bracket notation. ONLY the ```keys``` themselves can be used to access their value pair.
+
+```py
+
+friends = {"Jon" : 24, "Sam" : 36, "Steve" : 41, "Rudy" : 33}
+
+friends["Simon"] = 100
+friends["Simon"] = 200
+# can add new elements, but only if they DON'T exist
+
+print(friends)
+
+# >> {'Jon': 24, 'Sam': 36, 'Steve': 41, 'Rudy': 33, 'Simon': 200}
+
+```
+
+### Lists of Dictionaries
+
+You can have a list with [] and add mini dictionaries inside like an address book.
+
+```py
+
+address_book = [
+    {"name" : "Jon", "age" : 24},
+    {"name" : "Sam", "age" : 36},
+    {"name" : "Steve", "age" : 41},
+    {"name" : "Rudy", "age" : 33}
+]
+
+print(address_book[0]["name"])
+print(address_book[2]["age"])
+print(address_book["name"])
+
+# >> Jon
+# >> 41
+# >> ERROR
+
+```
+
+You have to first locate the item in the LIST using index numbers and [] notation and THEN access the keys.
+
+<br>
+
+### For Loops in Dictionaries / .values() .keys() / items()
+
+.items() gives us all the items in the dictionary.
+<br>
+
+```py
+
+friends = {"Jon" : 24, "Sam" : 36, "Steve" : 41, "Rudy" : 33}
+
+for person, age in friends.items():
+    print(f"{person} is {age}")
+
+# >> Jon is 24
+# >> Sam is 36
+# >> Steve is 41
+# >> Rudy is 33
+
+print(friends.keys())
+print(friends.values())
+
+# >> dict_keys(['Jon', 'Sam', 'Steve', 'Rudy'])
+# >> dict_values([24, 36, 41, 33])
+
+```
+
+<br>

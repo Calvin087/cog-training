@@ -1,13 +1,12 @@
 # ctrl alt m - terminate code runner
 print("\n") # formatting
 
-friends = {"Jon", "Sam", "Steve", "Rudy"}
+friends = {"Jon" : 24, "Sam" : 36, "Steve" : 41, "Rudy" : 33}
 
-friends_with_S = {friend for friend in friends if friend.startswith("S")}
-friends_with_J = {x for x in friends if x.startswith("J")}
-# looks like first and second parameters need to be the same, then the thing i'm searching, then if statement
+print(friends.keys())
+print(friends.values())
 
-print(friends_with_S)
-print(friends_with_J)
+# print(address_book[0]["name"])
+# print(address_book[2]["age"])
 
 print("\n") # formatting
