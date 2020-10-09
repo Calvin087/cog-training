@@ -74,7 +74,8 @@ print(f"{size_int} is your shoe size?")
 print(f"{size_int:.2f} is your shoe size?")  # 2 Decimal places added / inline float conversion?
 
 # Dave is your name
-# 12 is your shoe size?
+# 24 is your shoe size?
+# 24.00 is your shoe size?
 
 
 ```
