@@ -1,25 +1,26 @@
 # ctrl alt m - terminate code runner
 print("\n") # formatting
 
+def multiply(*args):
+    total = 1
+    for arg in args:
+        total = total * arg
+    
+    return total
 
-users = [
-    (0, "Bob", "password"),
-    (1, "Dave", "someg276"),
-    (2, "Sam", "long687uhb"),
-    (3, "Tom", "Copsm129^.")
-] # List of Tuples.
 
-username_mapping = {z[1] : z for z in users}
+def confusion_engine(*args, operator):
+# any number of args but operator
+# must! be supplied as a NAMED argument
+    if operator == "*":
+        return multiply(*args)
+        # Have to use * to pass in 4 args
+        # instead of one tuple
+    elif operator == "+":
+        return sum(args)
+    else:
+        return "You're doing it wrong"
 
-user_name_input = input("Enter username: ")
-user_passw_input = input("Enter password: ")
-
-_, username, password = username_mapping[user_name_input]
-# Users input then gives me a key to search the dictionary by.
-
-if user_passw_input == password:
-    print(f"Thank you {user_name_input}, correct pw")
-else:
-    print(f"You're not {user_name_input} Imposter!")
+print(confusion_engine(1, 2, 3, 4, operator="*"))
 
 print("\n") # formatting

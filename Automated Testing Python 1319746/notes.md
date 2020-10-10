@@ -20,6 +20,7 @@
 - [Intermediate Section.](#intermediate-section)
   - [Lambda Functions](#lambda-functions)
   - [Dictionary Comprehension (goooood / new)](#dictionarycomprehension-goooood--new)
+  - [Unpacking Arguments (forgotten info)](#unpacking-arguments-forgotten-info)
 
 <br>
 
@@ -757,3 +758,93 @@ else:
     print(f"You're not {user_name_input} Imposter!")
 
 ```
+
+---
+
+<br>
+
+## Unpacking Arguments (forgotten info)
+
+Functions that take in any number of ```args```. As many as you want.
+
+```py
+
+def lots_of_args(*args):
+    total = 0
+    for arg in args:
+        total += arg
+
+    print(f"{total} of Everything")
+
+lots_of_args(1, 2, 5, 100)
+
+# >> 108 of Everything
+
+```
+
+Interesting unpacking / destructuring of variables.
+
+```py
+
+def lots_of_args(*args):
+    total = 0
+    for arg in args:
+        total += arg
+
+    print(f"{total} of Everything")
+
+numbers_to_use = [20, 40, 50]
+
+lots_of_args(*numbers_to_use)
+
+# >> 108 of Everything
+
+```
+
+Even more interesting is using the ```key``` of a dictionary as the ```named arguemnt``` to pass.
+
+```py
+
+def lots_of_args(y, x):
+    total = x * y
+
+    print(f"{total} of Everything")
+
+numbers_to_use = {"x" : 10, "y" : 10}
+
+lots_of_args(**numbers_to_use)
+# The ** makes this executeble
+
+```
+
+This one is a head trip, remembering to place the ```*``` while passing the args to a helper function ```multiply()```
+
+```py
+
+def multiply(*args):
+    total = 1
+    for arg in args:
+        total = total * arg
+    
+    return total
+
+
+def confusion_engine(*args, operator):
+# any number of args but operator
+# must! be supplied as a NAMED argument
+    if operator == "*":
+        return multiply(*args)
+        # Have to use * to pass in 4 args
+        # instead of one tuple
+        # Unpacking the args and passing using *
+    elif operator == "+":
+        return sum(args)
+    else:
+        return "You're doing it wrong"
+
+print(confusion_engine(1, 2, 3, 4, operator="*"))
+
+
+```
+
+<br>
