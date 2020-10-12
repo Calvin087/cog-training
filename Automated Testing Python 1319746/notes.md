@@ -29,6 +29,9 @@
     - [Inheritance (used less than composition)](#inheritance-used-less-than-composition)
     - [Class Composition (used more often than inheritance)?](#class-composition-used-more-often-than-inheritance)
   - [Type Hinting](#type-hinting)
+  - [Imports](#imports)
+    - [Relative Imports](#relative-imports)
+  - [Errors in Python (try / catch)](#errors-in-python-try--catch)
 
 <br>
 
@@ -1285,5 +1288,85 @@ You can import hinting modules that tell you whether you're passing incorrect ty
 ```py
 
 
+
+```
+
+---
+
+<br>
+
+## Imports
+
+<br>
+
+```__name__``` is a global variable that changes depending on which file you're in. ```Sys``` allows me to see all the paths in my current folder and any things i have been imported at the top of the file.
+
+Also to remember, imported files are run back to front. So the file I'm in gets run last and the import runs before hand.
+
+So if have 3 files are importing from each other, the final one prints first, then they all run in reverse order.
+
+```py
+
+import sys
+
+print(sys.path)
+
+## >> '/Users/calvin/Documents/GitHub/cog-training/Automated Testing Python 1319746', '/Library/Frameworks/Python.framework/Versions/3.9/lib/python39.zip', '/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9', '/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/lib-dynload', '/Users/calvin/Library/Python/3.9/lib/python/site-packages', '/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages'
+
+
+```
+
+<br>
+
+### Relative Imports
+
+<br>
+
+This apparently isn't really used but causes problems for noobs. You can only do relative imports when they're in a folder / denoted with a folder name by a (```.```) libraries.modules.
+
+**Basically DON'T DO THIS** It seems annoying and messy.
+
+```py
+from .mymodule import xyz # <-- relative import, has to be in same folder...
+from mymodule import xyz
+```
+
+---
+
+<br>
+
+## Errors in Python (try / catch)
+
+<br>
+
+Using try / catch when sending info to functions can help to stop things breaking down later. Although I don't think it gives you a traceback so you can't see where exactly things broke down. Maybe later.
+
+I guess good practice to place errors in the maths of the functions as well as catch it before it gets sent to the function - as below.
+
+```py
+
+def divide(dividend, divisor):
+    if divisor == 0:
+        raise ZeroDivisionError("Divisor cannot be 0")
+        # concerned with not dividing by 0
+    
+    return dividend / divisor
+
+grades = []
+
+try:
+    average = divide(sum(grades), len(grades))
+except ZeroDivisionError as e:
+    print(e) # prints out more info
+    print("There are no grades in your list.")
+    # concerened with not allowing 0 into the function.
+else:
+    print(f"The average grade is {average}")
+finally:
+    print("This runs regardless of errors")
+
+# >> Divisor cannot be 0
+# >> There are no grades in your list.
+# >> This runs regardless of errors
 
 ```
