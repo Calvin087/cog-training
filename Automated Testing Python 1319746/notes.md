@@ -1114,7 +1114,7 @@ Tally.static_method()
 
 <br>
 
-Possibly being able to check against params to see if they match the available ```TYPES``` that we specify.
+Allows me to assign various parts of a new object without it being passed in. All I have to do is call the correct method while making the new object and the ```@classmethod``` assigns things using the data stored within the class.
 
 
 ```py
