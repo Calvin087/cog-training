@@ -21,6 +21,11 @@
   - [Lambda Functions](#lambda-functions)
   - [Dictionary Comprehension (goooood / new)](#dictionarycomprehension-goooood--new)
   - [Unpacking Arguments (forgotten info)](#unpacking-arguments-forgotten-info)
+  - [Unpacking Keyword Arguments (new)](#unpacking-keyword-arguments-new)
+  - [Object Oriented Programming (refresher)](#object-oriented-programming-refresher)
+    - [Magic Methods ```__str__``` / ```__repr__``` - Object representation](#magic-methods-__str__--__repr__---object-representation)
+    - [@ClassMethods / @StaticMethods (research more)](#classmethods--staticmethods-research-more)
+      - [Class methods expanded](#class-methods-expanded)
 
 <br>
 
@@ -844,7 +849,314 @@ def confusion_engine(*args, operator):
 
 print(confusion_engine(1, 2, 3, 4, operator="*"))
 
+# >> 24
 
 ```
 
 <br>
+
+---
+
+<br>
+
+## Unpacking Keyword Arguments (new)
+
+<br>
+
+Looks like we're able to create dictionaries using an undefined number of named arguments.
+
+```py
+
+def named(**kwargs): # Double ** to start this.
+    print(kwargs)
+
+named(name="Cally", age=100)
+
+# >> {'name': 'Cally', 'age': 100}
+
+```
+We can do this in the opposite direction as well.
+
+```py
+
+def named_it(name, age, style): # Double ** to start this.
+    print(name, age, style)
+
+details = {"name" : "Cally", "age" : 100, "style" : "no-style"}
+
+named_it(**details)
+
+# >> Cally 100 no-style
+
+```
+
+```py
+
+def named(**kwargs): # Double ** to start this.
+    print(kwargs)
+
+details = {"name" : "Cally", "age" : 100, "style" : "no-style"}
+
+named(**details)
+
+# >> {'name': 'Cally', 'age': 100, 'style': 'no-style'}
+
+```
+Unpacking and repacking. Looping over a packed dictionary. If you're using the Double ```**```, you have to pass a ```Dictionary```. Passing anything else will give an error.
+
+```
+function(**"Calvin") # >> ERROR
+function(**None) # >> ERROR
+```
+
+```py
+
+def named(**kwargs): # just to print an example first
+    print(kwargs)
+
+def print_nice(**kwargs):
+    named(**kwargs) # just to show the original print style
+    for arg, value in kwargs.items():
+        print(f"\n {arg}: {value} \n") # shows the print style when looping with line breaks.
+
+details = {"name" : "Steven", "age" : 200, "style" : "mad-style"}
+
+print_nice(name="calvin", age=100, style="no-style")
+print_nice(**details)
+
+# >> {'name': 'calvin', 'age': 100, 'style': 'no-style'}
+
+# >>  name: calvin 
+# >>  age: 100 
+# >>  style: no-style 
+
+# >> {'name': 'Steven', 'age': 200, 'style': 'mad-style'}
+
+# >>  name: Steven 
+# >>  age: 200 
+# >>  style: mad-style
+
+```
+
+---
+
+<br>
+
+## Object Oriented Programming (refresher)
+
+<br>
+
+To make life easier, we make objects/classes. We can add methods to these objects to make the code look cleaner for human legibility.
+
+It looks like we can store tuples inside the objects/classes also.
+
+```py
+
+class Student:
+    def __init__(self, name, grades):
+        self.name = name # indentation is important here also.
+        self.grades = grades
+
+
+cally = Student("Cally", (1,2,3,4,5))
+
+print(cally.name)
+print(cally.grades)
+
+# >> Cally
+# >> (1, 2, 3, 4, 5)
+
+```
+
+```py
+
+class Student:
+    def __init__(self, name, grades):
+        self.name = name
+        self.grades = grades
+
+    def average(self): # always takes self
+        return sum(self.grades) / len(self.grades)
+
+
+cally = Student("Cally", (1,2,3,4,5))
+
+print(cally.average) # stupid mistake, I activated the method but didn't call it.
+print(cally.average()) # you have to call the class methods for them to run correctly ie: with "()"
+
+# >> <bound method Student.average of <__main__.Student object at 0x10b658fa0>> <-- INCORRECT
+
+# >> 3.0 <-- CORRECT    
+
+```
+---
+
+<br>
+
+### Magic Methods ```__str__``` / ```__repr__``` - Object representation
+
+<br>
+
+Using the class from the last example, simply trying to print the info doesn't bring back anything that is useful for a human.
+
+```py
+
+class Student:
+    def __init__(self, name, grades):
+        self.name = name
+        self.grades = grades
+
+    def average(self): # always takes self
+        return sum(self.grades) / len(self.grades)
+
+
+cally = Student("Cally", (1,2,3,4,5))
+
+print(cally)
+
+# >> <__main__.Student object at 0x107588fa0>
+
+```
+
+Apparently Magic Methods allows us to get around this. ```__str__``` allows us to convert our method into a string representation.
+
+```py
+
+class Student:
+    def __init__(self, name, grades):
+        self.name = name
+        self.grades = grades
+
+    def __str__(self):
+        return f"Student: {self.name}'s grades are {self.grades} which average out to {self.average()}"
+        # turns out we can print functions inside strings!
+        # Notice that I'm not calling Print()
+        # I'm only printing the "Cally" child object.
+        # This prints by default
+    
+    def average(self): # always takes self
+        return sum(self.grades) / len(self.grades)
+
+
+cally = Student("Cally", (1,2,3,4,5))
+
+print(cally)
+
+```
+
+The ```__repr__``` method gives us another string type, that allows us to read and replicate the contents and layout of an object. NOT entirely sure the use of this yet.
+
+```py
+
+class Student:
+    def __init__(self, name, grades):
+        self.name = name
+        self.grades = grades
+
+    def __repr__(self):
+        return f"<Student({self.name}, {self.grades})>"
+
+cally = Student("Cally", (1,2,3,4,5))
+
+print(cally)
+
+# >> <Student(Cally, (1, 2, 3, 4, 5))>
+
+```
+
+---
+
+<br>
+
+### @ClassMethods / @StaticMethods (research more)
+
+<br>
+
+- **Instance methods** are used for most things. When you want to produce an action, using the data inside the object. Also if you want to call something to modify the data inside the ```self```.
+
+- **Class** are used as **Factories** *(what?)*
+
+- **Static** is just to place / organise methods (not used as much as the other two).
+
+```py
+
+class ClassTest:
+    # classes don't always need init if you have nothing to instantiate.
+
+    def instance_method(self):
+        print(f"Called instance method of {self}")
+
+    @classmethod
+    def class_method(cls): # common practice to name param as "cls"
+        print(f"Called class_method of {cls}")
+
+    @staticmethod
+    def static_method(): # Don't receive anything 
+        print(f"Called static_method and it's boring")
+
+
+Tally = ClassTest()
+
+
+Tally.instance_method()
+Tally.class_method() # automatically passes itself as a param
+Tally.static_method()
+
+# >> Called instance method of <__main__.ClassTest object at 0x10617bee0>
+# >> Called class_method of <class '__main__.ClassTest'>
+# >> Called static_method and it's boring
+
+```
+
+<br>
+
+#### Class methods expanded
+
+<br>
+
+Possibly being able to check against params to see if they match the available ```TYPES``` that we specify.
+
+
+```py
+
+class Book:
+    TYPES = ("hardcover", "paperback")
+    # Data stored in a class / organisation reasons
+
+    def __init__(self, name, book_type, weight):
+        self.name = name
+        self.book_type = book_type
+        self.weight = weight
+
+    def __repr__(self):
+        return f"<Book Title: {self.name}, {self.book_type}, weighing {self.weight}g>"
+
+    @classmethod
+    def hardcover(cls, name, weight):
+        return cls(name, cls.TYPES[0], weight + 100)
+        # cls refers to Book. ie: Book(name, ...)
+        # cls refers to Book. ie: cls(name, ...) = same thing as above
+
+    # This is using an internal method to create a new object.
+    # Automatically assigns "Hardcover" to the new object I'm tying to
+    # create outisde of this class ie: new_book.
+
+    @classmethod
+    def paperback(cls, name, weight):
+        return cls(name, cls.TYPES[1], weight + 50)
+
+
+hard_book = Book.hardcover("Power",  1300)
+# Only two arguments have been passed on to this,
+# but the result is that it has been assigned hardcover using the 
+# @classmethod of .hardcover.
+
+light_book = Book.paperback("Python 101",  1000)
+
+print(hard_book)
+print(light_book)
+
+# >> <Book Title: Power, hardcover, weighing 1400g>
+# >> <Book Title: Python 101, paperback, weighing 1050g>
+
+```
