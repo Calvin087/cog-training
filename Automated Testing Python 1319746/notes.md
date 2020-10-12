@@ -26,6 +26,9 @@
     - [Magic Methods ```__str__``` / ```__repr__``` - Object representation](#magic-methods-__str__--__repr__---object-representation)
     - [@ClassMethods / @StaticMethods (research more)](#classmethods--staticmethods-research-more)
       - [Class methods expanded](#class-methods-expanded)
+    - [Inheritance (used less than composition)](#inheritance-used-less-than-composition)
+    - [Class Composition (used more often than inheritance)?](#class-composition-used-more-often-than-inheritance)
+  - [Type Hinting](#type-hinting)
 
 <br>
 
@@ -1158,5 +1161,129 @@ print(light_book)
 
 # >> <Book Title: Power, hardcover, weighing 1400g>
 # >> <Book Title: Python 101, paperback, weighing 1050g>
+
+```
+
+<br>
+
+### Inheritance (used less than composition)
+
+<br>
+
+Super is what is used to call / copy all the functionality from the Parent class to be used in the child class
+
+```py
+
+class Device:
+    def __init__(self, name, connected_by):
+        self.name = name
+        self.connected_by = connected_by
+        self.connected = True
+
+    def __str__(self):
+        return f"Device: {self.name!r} ({self.connected_by})"
+        # !r prints out the __repr__ version of the name
+    
+    def disconnected(self):
+        self.connected = False
+        print("discconnected")
+
+
+class Printer(Device):
+    def __init__(self, name, connected_by, capacity): # All the same +1
+        super().__init__(name, connected_by)
+            # Gets / copies the parent class
+        self.capacity = capacity
+        self.remaining_pages = capacity
+            # Adding our own unique setters
+
+    def __str__(self):
+        return f"{super().__str__()} ({self.remaining_pages} pages remaining.)"
+
+    def print(self, pages):
+        if not self.connected:
+            print("Printer is not connected")
+            return
+        print(f"Printing {pages} pages.")
+        self.remaining_pages -= pages
+
+printer = Printer("Printer", "USB", 500)
+print(printer.print(20))
+print(printer)
+printer.disconnected()
+print(printer.print(20))
+
+# >> Printing 20 pages.
+# >> None <--- Why is this happening
+# >> Device: 'Printer' (USB) (480 pages remaining.)
+# >> discconnected
+# >> Printer is not connected
+# >> None <--- Why is this happening
+
+```
+
+---
+
+<br>
+
+### Class Composition (used more often than inheritance)?
+
+<br>
+
+Typically with inheritance, we're treating it like evolutionary inheritance. As if the ```child``` is the same and something more than the ```parent```. All tigers are mammals but not all mammals are tigers.
+
+There's no reason to inherit things if they're not going to be used.
+
+With composition, I've created a class that accepts and organises other class objects, the same way a bookshelf organises books.
+
+```py
+
+class Bookshelf:
+    def __init__(self, *books):
+        # Accepts a number of books, not only one at a time
+        self.books = books
+
+    def __str__(self):
+        return f"Bookshelf with {len(self.books)} books."
+
+
+class Book:
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):
+        return f"Book Title: '{self.name}'"
+
+
+power = Book("Power")
+ttown = Book("Toy Town")
+shelf = Bookshelf(power, ttown)
+
+print(power)
+print(ttown)
+print(shelf)
+print(shelf.books) # Gives me all books on bookshelf
+
+# >> Book Title: 'Power'
+# >> Book Title: 'Toy Town'
+# >> Bookshelf with 2 books.
+# >> (<__main__.Book object at 0x107b65fa0>, <__main__.Book object at 0x107b65e80>) <-- What do i even do with this??
+
+```
+---
+
+<br>
+
+## Type Hinting
+
+<br>
+
+Should probably look for a more in depth discussion about this as it's similar to Typescript for Javascript, which I need to learn.
+
+You can import hinting modules that tell you whether you're passing incorrect types to functions ie: tuples, lists, strings.
+
+```py
+
+
 
 ```

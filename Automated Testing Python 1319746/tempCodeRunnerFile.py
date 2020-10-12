@@ -1,2 +1,4 @@
-    # def __str__(self):
-    #     return f"Student: {self.name}'s grades are {self.grades} which average out to {self.average()}"
+def __str__(self):
+        return f"Device: {self.name!r} ({self.connected_by})"
+        # !r prints out the __repr__ version of the name
+    
