@@ -3,6 +3,9 @@ class Post:
         self.title = title
         self.content = content
 
+    def __repr__(self):
+        return f"<repsol>"
+
     def json(self):
         # basically a python dictionary
         return {

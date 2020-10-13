@@ -19,6 +19,7 @@ class PostTest(TestCase):
         expected = {'title': 'Test Title', 'content': 'Test Content Here'}
 
         self.assertDictEqual(expected, new_post.json())
+        # .json is a function on the object we're testing, hence ()
         # checking if the dictionary's content are the same.
         # assertEqual only will check if the object is the same
         # in memory, which we don't want.

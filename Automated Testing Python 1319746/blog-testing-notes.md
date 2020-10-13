@@ -1,4 +1,9 @@
-[Check against this](https://github.com/schoolofcode-me/testing-python-apps/tree/master/section3/video_code)
+- [Blog Testing Notes](#blog-testing-notes)
+  - [SAVE YOURSELF PAIN](#save-yourself-pain)
+  - [Start small and start early.](#start-small-and-start-early)
+  - [Unit Tests (posts)](#unit-tests-posts)
+    - [Dictionary Checks (useful for REST API's) / JSON-esque](#dictionary-checks-useful-for-rest-apis--json-esque)
+  - [The Blog Tests](#the-blog-tests)
 
 <br>
 
@@ -47,7 +52,7 @@ So test as it grows in complexity, not once it has become a beast.
 
 ---
 
-## Unit Tests
+## Unit Tests (posts)
 
 <br>
 
@@ -204,8 +209,16 @@ class PostTest(TestCase):
         expected = {'title': 'Test Title', 'content': 'Test Content Here'}
 
         self.assertDictEqual(expected, new_post.json())
-        # checking if the dictionary's content are the same.
+        # checking if the dictionary's contents are the same.
         # assertEqual only will check if the object is the same
         # in memory, which we don't want.
 
 ```
+
+<br>
+
+---
+
+## The Blog Tests
+
+<br>
