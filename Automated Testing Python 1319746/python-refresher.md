@@ -1730,7 +1730,9 @@ class Student:
 bob = Student("Bob")
 sam = Student("Sam")
 bob.take_exam(99)
-#
+
+# no exam for sam
+
 print(bob.grades)
 print(sam.grades)
 
