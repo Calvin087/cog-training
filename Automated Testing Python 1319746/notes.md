@@ -32,6 +32,10 @@
   - [Imports](#imports)
     - [Relative Imports](#relative-imports)
   - [Errors in Python (try / catch)](#errors-in-python-try--catch)
+    - [Custom Error Classes](#custom-error-classes)
+  - [First Class Functions (Important)](#first-class-functions-important)
+  - [Decorators in Python (more research)](#decorators-in-python-more-research)
+  - [@ Decorator syntax (more research)](#-decorator-syntax-more-research)
 
 <br>
 
@@ -1368,5 +1372,242 @@ finally:
 # >> Divisor cannot be 0
 # >> There are no grades in your list.
 # >> This runs regardless of errors
+
+```
+
+---
+
+<br>
+
+### Custom Error Classes
+
+<br>
+
+Most of the time you don't need to put anything inside the error classes, but you can if you want to get a little more advanced, but just giving them a new name is good enough most of the time.
+
+```py
+
+class TooManyPagesReadError(ValueError):
+    # Creating my own error which inherits from the ValueError
+    # Copy of ValueError, just with a different name
+    pass
+
+
+class Book:
+    def __init__(self, name: str, page_count: int):
+        self.name = name
+        self.page_count = page_count
+        self.pages_read = 0
+
+    def __repr__(self):
+        return (
+            f"<Book {self.name}, read {self.pages_read} pages out of {self.page_count}>"
+            )
+
+    def read(self, pages: int):
+        if self.pages_read + pages > self.page_count:
+            raise TooManyPagesReadError(
+                f"You tried to read too many pages"
+            )
+        self.pages_read += pages
+        print(f"You have now read {self.pages_read} pages out of {self.page_count}")
+
+
+new_book = Book("Power", 30)
+new_book.read(30)
+new_book.read(40)
+
+# >>    new_book.read(40)
+# >>     raise TooManyPagesReadError(
+# >> __main__.TooManyPagesReadError: You tried to read too many pages
+
+```
+
+Here's a prettier way of displaying errors for users, by passing the error as ```e```.
+
+```py
+
+try:
+    new_book = Book("Power", 30)
+    new_book.read(30)
+    new_book.read(40)
+except TooManyPagesReadError as e:
+    print(e)
+
+# >> You have now read 30 pages out of 30
+# >> You tried to read too many pages
+
+```
+
+---
+
+<br>
+
+## First Class Functions (Important)
+
+<br>
+
+Functions saved as variables, used as you would any other variable.
+
+```py
+
+def divide(dividend, divisor):
+    if divisor == 0:
+        raise ZeroDivisionError("Div cannot be 0")
+
+    return dividend / divisor
+
+def calculate(*values, operator):
+    # any number of values / unpacking
+    return operator(*values)
+    # passing a function as a parameter
+
+result = calculate(20, 5, operator=divide)
+    # the operator is not called using (),
+    # it's simply passed and called later inside calculate
+
+print(result)
+
+# >> 4.0
+
+```
+
+Another example of passing functions, but this time we don't name it.
+
+```py
+
+def search(sequence, expected, finder):
+    # list of dictionaries as seq
+    # expected is a str
+    # finder is really get_friend_name("Sam") is a passed function
+    for elem in sequence:
+        if finder(elem) == expected:
+        # get_friend_name("Sam") = "Sam"
+            return elem
+    raise RuntimeError(f"Could not find an element with {expected}")
+
+friends = [
+    {"name": "Dave", "age" : 30},
+    {"name": "Sam", "age" : 27},
+    {"name": "Tom", "age" : 41}
+]
+
+def get_friend_name(friend):
+    return friend["name"]
+
+print(search(friends, "Sam", get_friend_name))
+print(search(friends, "Dave", lambda friend : friend["name"]))
+# lambda = unnamed function, friend is argument, return friend ["name"]
+# Exactly the same as the print above it.
+
+# >> {'name': 'Sam', 'age': 27}
+# >> {'name': 'Dave', 'age': 30}
+
+```
+
+---
+
+<br>
+
+## Decorators in Python (more research)
+
+<br>
+
+First class functions to replace the values of other functions.....
+
+```py
+
+user = {"username" : "Cally", "access_level": "admin"}
+
+def my_pass():
+    return "1234"
+
+def make_secure(func):
+    def secure_function():
+    # We're not calling secure_function, it seems to run just because
+    # It's inside a running function already.
+        if user["access_level"] == "admin":
+            return func()
+        else:
+            return f"no admin access for {user['username']}"
+    
+    return secure_function
+    # We're only returning the value of the already running secure_function
+
+get_admin_password = make_secure(my_pass)
+# This variable is equal to a function, so we can call it as a function.
+# AKA First Class Function
+# We're replacing get_admin_p with a secure function after checking.
+
+print(get_admin_password())
+
+```
+
+---
+
+<br>
+
+## @ Decorator syntax (more research)
+
+<br>
+
+Placing the ```@``` above a function stops it from being used before it's supposed to be and sends it through the function defined with the ```@```. This however changes the name of the function inside python's brain to the name of the ```@ function```. To prevent this and keep the old name in memory, we need to import ```functools```.
+
+```@functools.wrap``` tells the function that it's a wrapper for something else. This helps with tracebacks and avoids confusions with name changes.
+
+```py
+
+import functools
+
+user = {"username" : "Cally", "access_level": "admin"}
+
+def make_secure(func):
+    # @ Tells python that secure is just a wrapper, maintain orig names.
+    @functools.wraps(func)
+    def secure_function():
+        if user["access_level"] == "admin":
+            return func()
+        else:
+            return f"no admin access for {user['username']}"
+    
+    return secure_function
+
+# @ sends this to make secure immediately, effectively REPLACING with make_secure()
+@make_secure
+def my_pass():
+    return "1234"
+
+print(my_pass())
+
+```
+
+By default it's difficult to use paremeters on functions that have been decorated. It binds the two functions and stops them from being used elsewhere because of the specific nature that the parameters force them into.
+
+To avoid this we can using the unpacking and unlimited params techniques ```*args + **kwargs```.
+
+```py
+
+import functools
+
+user = {"username" : "Cally", "access_level": "admin"}
+
+def make_secure(func):
+    @functools.wraps(func)
+    def secure_function(*args, **kwargs):
+        if user["access_level"] == "admin":
+            return func(*args, **kwargs)
+        else:
+            return f"no admin access for {user['username']}"
+    
+    return secure_function
+
+@make_secure
+def my_pass(panel):
+    if panel == "admin":
+        return "1234"
+    elif panel == "billing":
+        return "super_secure_password."
+
+print(my_pass("billing"))
 
 ```
