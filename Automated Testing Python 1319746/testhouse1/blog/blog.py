@@ -1,3 +1,5 @@
+from post import Post
+
 class Blog:
     def __init__(self, title, author):
         self.title = title
@@ -5,13 +7,23 @@ class Blog:
         self.posts = []
 
     def __repr__(self):
-        return f"{self.title} by {self.author} ({len(self.posts)} posts)"
+        p_plural = 's' if len(self.posts) != 1 else ''
+
+        return f"{self.title} by {self.author} ({len(self.posts)} post{p_plural})"
 
     def create_post(self, title, content):
-        pass
+        self.posts.append(Post(title, content))
+        # not receiving a object, so we have to create it.
 
     def json(self):
         return {
             'title': self.title,
-            'content': self.posts,
+            'author': self.author,
+            'posts': [post.json() for post in self.posts],
+            # posts is an integration method, so a test is needed for that
         }
+
+my_blog = Blog("Home", "Calvin")
+my_blog.create_post("Post 1", "My way")
+my_blog.create_post("Post 2", "All home")
+print(my_blog.json())

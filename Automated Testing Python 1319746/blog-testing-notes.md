@@ -5,6 +5,7 @@
     - [Dictionary Checks (useful for REST API's) / JSON-esque](#dictionary-checks-useful-for-rest-apis--json-esque)
   - [The Blog Tests](#the-blog-tests)
   - [TDD](#tdd)
+      - [**KISS**](#kiss)
 
 <br>
 
@@ -14,6 +15,7 @@
 
 ## SAVE YOURSELF PAIN
 Run these tests from Terminal instead of VSCode.
+Add __init__.py files to each folder. For some reason VSCode doesn't like not having these and it complains about imports not working.
 
 ```
 python3 -m unittest tests/unit/post_test.py
@@ -224,6 +226,8 @@ class PostTest(TestCase):
 
 <br>
 
+This has no become an in integration test and had to be broken in two because it's no longer only testing one thing. It's reliant on other posts being added - Multiple posts being checked and more.
+
 ```py
 
 from unittest import TestCase
@@ -238,6 +242,36 @@ class BlogTest(TestCase):
         self.assertEqual("Test Author", new_blog.author)
         self.assertListEqual([], new_blog.posts)
 
+    def test_repr(self):
+        new_blog = Blog("Test Title", "Test Author")
+
+        self.assertEqual(new_blog.__repr__(), "Test Title by Test Author (0 posts)")
+
+    def test_repr_multi_posts(self):
+        new_blog = Blog("Test Title", "Test Author")
+        new_blog.posts = ["test post"]
+        my_blog = Blog("Calvin's Blog", "Calvin T")
+        my_blog.posts = ["A day in the life", "How I set up projects", "Last Day"]
+
+
+        self.assertEqual(new_blog.__repr__(), "Test Title by Test Author (1 post)")
+        self.assertEqual(my_blog.__repr__(), "Calvin's Blog by Calvin T (3 posts)")
+
+#
+# Above this fold we're only looking at unit testing
+# --------------------------------------------------
+# From here it becomes an integration test.
+# I duplicated the file and deleted above and below respectively.
+#
+
+    def test_create_post_in_blog(self):
+        new_blog = Blog("Test Title", "Test Author")
+        new_blog.create_post("Test Post", "Test Content")
+
+        self.assertEqual(len(new_blog.posts), 1)
+        self.assertEqual(new_blog.posts[0].title, "Test Post")
+        self.assertEqual(new_blog.posts[0].content, "Test Content")
+
 ```
 
 <br>
@@ -250,4 +284,22 @@ So TDD is apparently thinking about what you want to test, writing the test and 
 
 Then implementing the simplest version of code to allow the test to pass.....then **rinse and repeat**.
 
-Posibly write 2 tests, prior to coding up the solution.
+<br>
+
+#### **KISS**
+
+Write 1 test, fail it, fix it, pass it.
+
+Expand that test.
+
+Write 1 test, fail it, fix it, pass it.
+
+Think of a new test
+
+Write 1 test, fail it, fix it, pass it.
+
+Expand that test
+
+and so on.
+
+<br>
