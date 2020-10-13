@@ -1,1 +1,1 @@
-post.json() for post in self.posts
+{'name': 'doody'}

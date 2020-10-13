@@ -6,6 +6,8 @@
   - [The Blog Tests](#the-blog-tests)
   - [TDD](#tdd)
       - [**KISS**](#kiss)
+  - [System Tests](#system-tests)
+      - [Testing print() values in console....?](#testing-print-values-in-console)
 
 <br>
 
@@ -218,6 +220,27 @@ class PostTest(TestCase):
 
 ```
 
+```py
+
+    def test_json(self):
+        new_blog = Blog("Test Title", "Test Author")
+        new_blog.create_post("Test Post", "Test Content")
+        
+        expected = {
+            'title': 'Test Title',
+            'author': 'Test Author',
+            'posts': [
+                {
+                    'title': 'Test Post',
+                    'content': 'Test Content'
+                }
+            ]
+        }
+
+        self.assertDictEqual(expected, new_blog.json())
+
+```
+
 <br>
 
 ---
@@ -303,3 +326,15 @@ Expand that test
 and so on.
 
 <br>
+
+----
+
+<br>
+
+## System Tests
+
+<br>
+
+Different from unit or integration. These tests pass through the entire system.
+
+#### Testing print() values in console....?
