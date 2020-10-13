@@ -4,6 +4,7 @@
   - [Unit Tests (posts)](#unit-tests-posts)
     - [Dictionary Checks (useful for REST API's) / JSON-esque](#dictionary-checks-useful-for-rest-apis--json-esque)
   - [The Blog Tests](#the-blog-tests)
+  - [TDD](#tdd)
 
 <br>
 
@@ -222,3 +223,31 @@ class PostTest(TestCase):
 ## The Blog Tests
 
 <br>
+
+```py
+
+from unittest import TestCase
+from blog import Blog
+
+class BlogTest(TestCase):
+
+    def test_create_blog(self):
+        new_blog = Blog("Test Title", "Test Author")
+
+        self.assertEqual("Test Title", new_blog.title)
+        self.assertEqual("Test Author", new_blog.author)
+        self.assertListEqual([], new_blog.posts)
+
+```
+
+<br>
+
+## TDD
+
+<br>
+
+So TDD is apparently thinking about what you want to test, writing the test and then watching it fail.
+
+Then implementing the simplest version of code to allow the test to pass.....then **rinse and repeat**.
+
+Posibly write 2 tests, prior to coding up the solution.
