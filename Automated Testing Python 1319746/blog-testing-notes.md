@@ -6,6 +6,21 @@
 
 <br>
 
+## SAVE YOURSELF PAIN
+Run these tests from Terminal instead of VSCode.
+
+```
+python3 -m unittest tests/unit/post_test.py
+```
+
+Massive problems running the test framework in VSCode, should serve me right relying on this. Need to learn to work more in the Terminal from now on.
+
+<br>
+
+---
+
+<br>
+
 ```py
 
 class Post:

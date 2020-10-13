@@ -12,4 +12,4 @@ class PostTest(TestCase):
         # Make sure that the string we're passing
         # is the same as p.title
 
-        self.assertEqual("Test Content Here", p.content)
+        self.assertEqual("Test Contentd Here", p.content)
