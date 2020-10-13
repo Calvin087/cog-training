@@ -35,7 +35,9 @@
     - [Custom Error Classes](#custom-error-classes)
   - [First Class Functions (Important)](#first-class-functions-important)
   - [Decorators in Python (more research)](#decorators-in-python-more-research)
-  - [@ Decorator syntax (more research)](#-decorator-syntax-more-research)
+  - [@ Decorator syntax (more research + links)](#-decorator-syntax-more-research--links)
+  - [Mutability in Python and default parameters](#mutability-in-python-and-default-parameters)
+    - [Default Params.](#default-params)
 
 <br>
 
@@ -1547,9 +1549,14 @@ print(get_admin_password())
 
 <br>
 
-## @ Decorator syntax (more research)
+## @ Decorator syntax (more research + links)
 
 <br>
+
+Links:
+- [DataCamp Tuts](https://www.datacamp.com/community/tutorials/decorators-python)
+- [Primer on Python Decorators](https://realpython.com/primer-on-python-decorators/)
+- [Video on Decorators](https://www.youtube.com/watch?v=MYAEv3JoenI&ab_channel=howCode)
 
 Placing the ```@``` above a function stops it from being used before it's supposed to be and sends it through the function defined with the ```@```. This however changes the name of the function inside python's brain to the name of the ```@ function```. To prevent this and keep the old name in memory, we need to import ```functools```.
 
@@ -1656,5 +1663,78 @@ print(get_dashboard_password())
 
 # >> 1234
 # >> no guest access for Dave
+
+```
+
+---
+
+<br>
+
+## Mutability in Python and default parameters
+
+<br>
+
+Everything is mutable unless...they are ```tuples```, ```int```, ```floats```, ```strings```, ```booleans```
+
+### Default Params.
+
+<br>
+
+NEVER make a default param a mutable value. In the example below. Sam did not take an exam and should not have a grade assigned. However when the program runs, Sam has the same grades as Bob (student1).
+
+```py
+
+from typing import List
+
+class Student:
+    def __init__(self, name: str, grades: List[int] = []):
+        # BAAAAAAD
+        # second student grades are the same as student 1 (copied)
+        self.name = name
+        self.grades = grades
+
+    def take_exam(self, result: int):
+        self.grades.append(result)
+
+bob = Student("Bob")
+sam = Student("Sam")
+bob.take_exam(99)
+
+# no exam for sam
+
+print(bob.grades)
+print(sam.grades)
+
+# >> [99]
+# >> [99] <-- This should be an empty list
+
+```
+
+Giving the mutable area a value of ```None``` at first and then allowing it to be assigned in the setters.
+
+If you want to use defaults, use ```tuples```, ```int```, ```floats```, ```strings```, ```booleans```
+
+```py
+
+from typing import List
+
+class Student:
+    def __init__(self, name: str, grades: List[int] = None):
+        # assigning NONE at first and then below giving the option of list
+        self.name = name
+        self.grades = grades or []
+
+    def take_exam(self, result: int):
+        self.grades.append(result)
+
+bob = Student("Bob")
+sam = Student("Sam")
+bob.take_exam(99)
+#
+print(bob.grades)
+print(sam.grades)
+
+# >> [99]
+# >> []
 
 ```
