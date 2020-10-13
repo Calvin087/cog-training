@@ -6,10 +6,19 @@ class PostTest(TestCase):
     # it's now referenced as self after inheritance.
 
     def test_create_post(self):
-        p = Post("Test Title", "Test Content Here")
+        new_post = Post("Test Title", "Test Content Here")
 
-        self.assertEqual("Test Title", p.title)
+        self.assertEqual("Test Title", new_post.title)
         # Make sure that the string we're passing
         # is the same as p.title
 
-        self.assertEqual("Test Contentd Here", p.content)
+        self.assertEqual("Test Content Here", new_post.content)
+
+    def test_json(self):
+        new_post = Post("Test Title", "Test Content Here")
+        expected = {'title': 'Test Title', 'content': 'Test Content Here'}
+
+        self.assertDictEqual(expected, new_post.json())
+        # checking if the dictionary's content are the same.
+        # assertEqual only will check if the object is the same
+        # in memory, which we don't want.
