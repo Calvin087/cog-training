@@ -4,8 +4,9 @@
   - [Unit Tests (posts)](#unit-tests-posts)
     - [Dictionary Checks (useful for REST API's) / JSON-esque](#dictionary-checks-useful-for-rest-apis--json-esque)
   - [The Blog Tests](#the-blog-tests)
+  - [Integration test](#integration-test)
   - [TDD](#tdd)
-      - [**KISS**](#kiss)
+      - [KISS](#kiss)
   - [System Tests](#system-tests)
       - [Testing print() values in console....?](#testing-print-values-in-console)
 
@@ -249,7 +250,7 @@ class PostTest(TestCase):
 
 <br>
 
-This has no become an in integration test and had to be broken in two because it's no longer only testing one thing. It's reliant on other posts being added - Multiple posts being checked and more.
+This eventually becomes an in integration test and had to be broken in two because it's no longer only testing one thing. It's reliant on other posts being added - Multiple posts being checked and more.
 
 ```py
 
@@ -299,6 +300,61 @@ class BlogTest(TestCase):
 
 <br>
 
+---
+
+## Integration test
+
+<br>
+
+From above this is the snippet for when things became integration
+
+```py
+
+from unittest import TestCase
+from blog import Blog
+
+class BlogTest(TestCase):
+
+    def test_create_post_in_blog(self):
+        new_blog = Blog("Test Title", "Test Author")
+        new_blog.create_post("Test Post", "Test Content")
+
+        self.assertEqual(len(new_blog.posts), 1)
+        self.assertEqual(new_blog.posts[0].title, "Test Post")
+        self.assertEqual(new_blog.posts[0].content, "Test Content")
+
+    def test_json_no_posts(self):
+        new_blog = Blog("Test Title", "Test Author")
+
+        expected = {
+            'title': 'Test Title',
+            'author': 'Test Author',
+            'posts': []
+        }
+
+        self.assertDictEqual(expected, new_blog.json())
+
+    def test_json(self):
+        new_blog = Blog("Test Title", "Test Author")
+        new_blog.create_post("Test Post", "Test Content")
+        
+        expected = {
+            'title': 'Test Title',
+            'author': 'Test Author',
+            'posts': [
+                {
+                    'title': 'Test Post',
+                    'content': 'Test Content'
+                }
+            ]
+        }
+
+        self.assertDictEqual(expected, new_blog.json())
+
+```
+
+<br>
+
 ## TDD
 
 <br>
@@ -309,7 +365,11 @@ Then implementing the simplest version of code to allow the test to pass.....the
 
 <br>
 
-#### **KISS**
+---
+
+<br>
+
+#### KISS
 
 Write 1 test, fail it, fix it, pass it.
 
