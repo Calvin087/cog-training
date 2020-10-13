@@ -2,11 +2,9 @@
 
 <br>
 
-# Testing in Python
+# Setting up the Enviroment
 
 <br>
-
-## Setting up the Enviroment
 
 Whenever you start a new project, set up a virtual environment to go with it. They're small and reccommended.
 
