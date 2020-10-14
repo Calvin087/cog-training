@@ -7,8 +7,9 @@
   - [Integration test](#integration-test)
   - [TDD](#tdd)
       - [KISS](#kiss)
-  - [System Tests](#system-tests)
+  - [System Tests - Mock / Patching (more research - links)](#system-tests---mock--patching-more-research---links)
       - [Testing print() values in console....?](#testing-print-values-in-console)
+      - [Testing input() values](#testing-input-values)
 
 <br>
 
@@ -391,10 +392,89 @@ and so on.
 
 <br>
 
-## System Tests
+## System Tests - Mock / Patching (more research - links)
 
 <br>
+
+[Docs for patching info](https://docs.python.org/3.8/library/unittest.mock.html?highlight=patch#unittest.mock.patch)
 
 Different from unit or integration. These tests pass through the entire system.
 
 #### Testing print() values in console....?
+
+Apparently a lot more involved than testing return values. We need to import patch from ```unittest.mock```
+
+```py
+
+from unittest import TestCase
+from unittest.mock import patch
+import app
+from blog import Blog
+
+class AppTest(TestCase):
+    def test_print_blogs(self):
+
+        blog = Blog('Test', 'Test Author')
+        # importing from blog, section
+        # Then sliding over to app and printing the blog posts
+        
+        app.blogs = {'Test': blog}
+        # Confused, are we now creating a collection of blogs
+        # Each with a number of blog posts??
+
+        with patch('builtins.print') as mocked_print:
+            # patching the print function as mocked print
+            # the print function in app.py is being **REPLACED** by
+            # my patched version then we're checking if it was called
+            # PRINT is never really called, an imposter of Print, runs.
+            # NO console check has been done.
+        
+            app.print_blogs_posts()
+            mocked_print.assert_called_with('- Test by Test Author (0 posts)')
+
+```
+
+#### Testing input() values
+
+```py
+
+class AppTest(TestCase):
+    
+    def test_menu_prints_prompt(self):
+
+        with patch('builtins.input') as mocked_input:
+            app.menu()
+            mocked_input.assert_called_with("Enter 'c' to create a blog, 'l' to list blogs, 'r' to read one, 'p' to create a post, or 'q' to quit: ")
+
+    def test_menu_calls_print_blogs(self):
+        with patch('app.print_blog_posts') as mocked_print_blogs:
+            # stops and waits for user input
+
+            with patch('builtins.input'):
+                # passes through user input and doesn't require it.
+                app.menu()
+                mocked_print_blogs.assert_called()
+
+    def test_print_blogs(self):
+
+        blog = Blog('Test', 'Test Author')
+        # importing from blog, section
+        # Then sliding over to app and printing the blog posts
+        
+        app.blogs = {'TestAasd': blog}
+        # Confused, are we now creating a collection of blogs
+        # Each with a number of blog posts??
+
+        with patch('builtins.print') as mocked_print:
+            # patching the print function as mocked print
+            # the print function in app.py is being **REPLACED** by
+            # my patched version then we're checking if it was called
+            # PRINT is never really called, an imposter of Print, runs.
+            # NO console check has been done.
+        
+            app.print_blog_posts()
+            mocked_print.assert_called_with('- Test by Test Author (0 posts)')
+
+            
+
+```

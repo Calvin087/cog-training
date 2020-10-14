@@ -23,7 +23,4 @@ class Blog:
             # posts is an integration method, so a test is needed for that
         }
 
-my_blog = Blog("Home", "Calvin")
-my_blog.create_post("Post 1", "My way")
-my_blog.create_post("Post 2", "All home")
-print(my_blog.json())
+        
