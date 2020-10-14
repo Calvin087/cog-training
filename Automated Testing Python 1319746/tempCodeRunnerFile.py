@@ -1,1 +1,0 @@
-secure_function(admin_password)

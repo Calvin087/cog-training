@@ -11,24 +11,25 @@ class AppTest(TestCase):
         # importing from blog, section
         # Then sliding over to app and printing the blog posts
 
-        app.blogs = {'TestAasd': blog}
+        app.blogs = {'Test': blog}
         # sending a dictionary with the key of "TestAasd"
         # and value of the newly created blog object.
 
     def test_menu_calls_create_blog(self):
         with patch('builtins.input') as mocked_input:
-            mocked_input.side_effect = ('c', 'Test Menu Calls Create Blog', 'Test Author', 'q')
-            # checking if the flow for c creates the right result.
-            # typing c asks you to create a new blog with name and author.
-            # we then provide an input as side effect, author and then q to cancel.
+            with patch('app.ask_create_blog') as mocked_ask_create_blog:
+                mocked_input.side_effect = ('c', 'Test Create Blog', 'Test Author', 'q')
+                # checking if the flow for c creates the right result.
+                # typing c asks you to create a new blog with name and author.
+                # we then provide an input as side effect, author and then q to cancel.
 
-            app.menu()
+                app.menu()
 
-            self.assertIsNone(app.blogs['Test Menu Calls Create Blog'])
+                mocked_ask_create_blog.assert_called()
 
     
     def test_menu_prints_prompt(self):
-        with patch('builtins.input') as mocked_input:
+        with patch('builtins.input', return_value='q') as mocked_input:
             app.menu()
             mocked_input.assert_called_with(app.MENU_PROMPT)
 
@@ -69,7 +70,7 @@ class AppTest(TestCase):
     
     def test_ask_read_blog(self):
 
-        with patch('builtins.input', return_value='And Another One'):
+        with patch('builtins.input', return_value='Test'):
             with patch('app.print_posts') as mocked_print_posts:
             # We're mocking the print_posts function from app.py
             # we're then naming that mocked_print_posts as a variabe?

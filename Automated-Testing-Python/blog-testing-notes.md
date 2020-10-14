@@ -24,6 +24,11 @@
 
 > **Running Tests**
 
+Seems like we're using a built in unittest module.
+```
+from unittest import TestCase
+```
+
 Run these tests from Terminal instead of VSCode.
 Add __init__.py files to each folder. For some reason VSCode doesn't like not having these and it complains about imports not working.
 
