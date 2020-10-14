@@ -10,6 +10,7 @@
   - [System Tests - Mock / Patching (more research - links)](#system-tests---mock--patching-more-research---links)
       - [Testing print() values in console....?](#testing-print-values-in-console)
       - [Testing input() values](#testing-input-values)
+  - [SetUp](#setup)
 
 <br>
 
@@ -18,6 +19,11 @@
 <br>
 
 ## SAVE YOURSELF PAIN
+
+<br>
+
+> **Running Tests**
+
 Run these tests from Terminal instead of VSCode.
 Add __init__.py files to each folder. For some reason VSCode doesn't like not having these and it complains about imports not working.
 
@@ -26,6 +32,21 @@ python3 -m unittest tests/unit/post_test.py
 ```
 
 Massive problems running the test framework in VSCode, should serve me right relying on this. Need to learn to work more in the Terminal from now on.
+
+<br>
+
+> **Imports**
+
+Also don't forget to import modules that you're calling to make sure they can be run. Examples below 
+
+```py
+# Working in side app_test.py or another file.
+
+from post import Post # <-- don't forget this or it will crash.
+
+post_to_print = Post('blah', 'blah')
+
+```
 
 <br>
 
@@ -475,6 +496,16 @@ class AppTest(TestCase):
             app.print_blog_posts()
             mocked_print.assert_called_with('- Test by Test Author (0 posts)')
 
-            
-
 ```
+
+<br>
+
+---
+
+## SetUp
+
+<br>
+
+Something you can define inside a test case  and will run before each test. Useful if you have to continually create the same thing over and over.
+
+Also need to make sure that the thing being created in ```setup``` doesn't fail other tests that don't really need it.
