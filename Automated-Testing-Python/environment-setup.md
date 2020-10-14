@@ -6,6 +6,8 @@
 
 <br>
 
+> **Same for flask and the unit Tests**
+
 Whenever you start a new project, set up a virtual environment to go with it. They're small and reccommended.
 
 ```

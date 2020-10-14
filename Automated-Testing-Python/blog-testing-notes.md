@@ -22,6 +22,14 @@
 
 <br>
 
+> **Naming Tests**
+
+Test functions in the testsuite need to be named test_ something - otherwise they fail.
+
+```
+def test_home(self):
+```
+
 > **Running Tests**
 
 Seems like we're using a built in unittest module.
