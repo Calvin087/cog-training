@@ -1,10 +1,11 @@
-from unittest import TestCase
-from app import app
+from tests.system.test_base import BaseTest
 import json
 
-class TestHome(TestCase):
+class TestHome(BaseTest):
     def test_home(self):
-        with app.test_client() as c:
+        with self.app() as c:
+        # self.app is being pulled from based test where we're
+        # initiating app.test_client
             response = c.get('/')
 
         # Test client comes from Flask
