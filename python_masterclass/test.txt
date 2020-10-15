@@ -1,0 +1,4 @@
+My lovely text file has nothing inside it.
+Something on second line,
+
+Here's something after a blank line

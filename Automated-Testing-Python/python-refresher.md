@@ -38,6 +38,9 @@
   - [@ Decorator syntax (more research + links)](#-decorator-syntax-more-research--links)
   - [Mutability in Python and default parameters](#mutability-in-python-and-default-parameters)
     - [Default Params.](#default-params)
+- [Working With Files](#working-with-files)
+    - [opening, reading, closing](#opening-reading-closing)
+    - [with & as while working with files](#with--as-while-working-with-files)
 
 <br>
 
@@ -184,6 +187,18 @@ both = art.intersection(science)
 print(both)
 
 # >> {'steve', 'jon', 'rudy'}
+
+---
+
+# Creating a unique selection
+
+dupes = [1, 2, 2, 2, 2, 3, 4, 5, 6, 6, 6, 6]
+
+de_dupe = set(dupes)
+
+print(de_dupe)
+
+# >> {1, 2, 3, 4, 5, 6}
 
 ```
 ---
@@ -1738,5 +1753,49 @@ print(sam.grades)
 
 # >> [99]
 # >> []
+
+```
+
+---
+
+<br>
+
+# Working With Files
+
+<br>
+
+This text file is in the same directory as the script. Took a few seconds for it to be able to index it before being able to read it without errors.
+
+> **Seeker**
+
+There's a an invisible cursor that moves through the file after a read, this needs to be reset otherwise reading again will print a blank statement.
+
+**BUT** not sure where this happens though because the terminal and VSCode both automatically seem to reset the seeker?
+
+### opening, reading, closing
+
+```py
+
+my_file = open('test.txt')
+
+print(my_file.read())
+
+my_file.seek(0) # nothing
+print(my_file.readlines()) # again nothing, probably a notebook feature.
+
+# >> My lovely text file has nothing inside it.
+
+my_file.close() # When you're done!
+
+```
+
+Executing code on a file as if we're making a function using ```with``` and ```as```. This also automatically CLOSES the file once executed.
+
+### with & as while working with files
+
+```py
+
+with open('test.txt') as my_file:
+    print(my_file.read())
 
 ```
