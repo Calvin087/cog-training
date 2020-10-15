@@ -41,6 +41,26 @@ virtualenv venv --python=python3.9
 
 This creates a folder called ```venv``` (virtual environment?). It copies Python into this folder **without** packages and libraries.
 
+> Activating Virtual Env
+
+MAC OS Activate the Virtual environment
+```
+source venv/bin/activate
+(name of venv) path/names/show/here/in-terminal
+```
+
+Windows Activate the Virtual environment
+```
+.\venv\Scripts\activate.bat
+(name of venv) path/names/show/here/in-terminal
+```
+> Installing Requirements
+
+```
+pip install -r example_folder/requirements.txt
+```
+
+
 <br>
 
 Create a new directory called "Blog"
