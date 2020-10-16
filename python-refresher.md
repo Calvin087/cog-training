@@ -4,19 +4,25 @@
   - [String Fromatting](#string-fromatting)
   - [User Input + Int / Str](#user-input--int--str)
   - [Lists / Tuples / Sets](#lists--tuples--sets)
+  - [Numbers, shuffle, randint](#numbers-shuffle-randint)
   - [Sets - Additional Methods](#sets---additional-methods)
   - [Booleans](#booleans)
   - [In Keyword + If Statements](#in-keyword--if-statements)
   - [Loops](#loops)
+      - [Enumerate loop](#enumerate-loop)
+      - [Zipping lists together](#zipping-lists-together)
+      - [Tuple unpacking with Loops](#tuple-unpacking-with-loops)
   - [List Comprehensions (gooood shortcuts)](#list-comprehensions-gooood-shortcuts)
     - [startswith()](#startswith)
   - [Dictionaries](#dictionaries)
     - [Lists of Dictionaries](#lists-of-dictionaries)
     - [For Loops in Dictionaries / .values() .keys() / items()](#for-loops-in-dictionaries--values-keys--items)
+      - [continue:](#continue)
   - [Destructuring Variables](#destructuring-variables)
   - [Functions (new)](#functions-new)
     - [Positional arguemnts](#positional-arguemnts)
     - [Default Values as Variables](#default-values-as-variables)
+- [Functions.](#functions)
 - [Intermediate Section.](#intermediate-section)
   - [Lambda Functions](#lambda-functions)
   - [Dictionary Comprehension (goooood / new)](#dictionarycomprehension-goooood--new)
@@ -145,6 +151,39 @@ sets = {"Dave", "Sam", "Chicken"}
 ---
 <br>
 
+## Numbers, shuffle, randint
+
+<br>
+
+Same old, but didn't know you can import random integers and shuffles.
+
+```py
+
+from random import shuffle
+
+sdf = [1, 2, 3, 5, 6, 7]
+shuffle(sdf)
+print(sdf)
+
+# >> [1, 3, 2, 5, 7, 6]
+# >> [2, 3, 1, 5, 6, 7]
+# >> [2, 6, 7, 5, 1, 3]
+# >> [6, 5, 7, 3, 2, 1]
+
+
+pop = randint(0,100)
+
+print(pop)
+
+# >> 93
+# >> 62
+# >> 78
+
+```
+
+---
+<br>
+
 ## Sets - Additional Methods
 
 <br>
@@ -201,6 +240,7 @@ print(de_dupe)
 # >> {1, 2, 3, 4, 5, 6}
 
 ```
+
 ---
 
 <br>
@@ -304,6 +344,73 @@ for name in history:
 
 ```
 
+#### Enumerate loop
+
+seems to be able to pull out the index as well as the char/int.
+
+```py
+
+my_string = "Stand"
+
+for i, letter in enumerate(my_string):
+    if letter == ' ':
+        continue
+    print(f"something {i}, and then {letter}")
+
+# >> something 0, and then S
+# >> something 1, and then t
+# >> something 2, and then a
+# >> something 3, and then n
+# >> something 4, and then d
+
+```
+
+#### Zipping lists together
+
+```py
+
+my_string = [1, 2, 3]
+my_list = ['a', 'b', 'c']
+
+for item in zip(my_string, my_list):
+    print(item)
+
+
+# >> (1, 'a')
+# >> (2, 'b')
+# >> (3, 'c')
+
+# Will only go as far as the shortest list
+
+my_string = [1, 2, 3]
+my_list = ['a', 'b', 'c']
+
+pop = list(zip(my_string, my_list))
+
+print(pop)
+
+# > [(1, 'a'), (2, 'b'), (3, 'c')]
+
+```
+
+#### Tuple unpacking with Loops
+
+```py
+
+list_of_tups = [(1,2), (3,4), (5,6), (7,8), (9,10)]
+
+for tup1, tup2 in list_of_tups:
+    print(str(tup1) + ' then print ' + str(tup2)) 
+
+
+# >> 1 then print 2
+# >> 3 then print 4
+# >> 5 then print 6
+# >> 7 then print 8
+# >> 9 then print 10
+
+```
+
 ---
 
 <br>
@@ -328,6 +435,50 @@ print(combined)
 
 # >> [40, 200, 600, 4042]
 # >> 4882
+
+# List comprehension and Loops
+
+squares = [x for x in range(1,10)]
+
+print(squares)
+
+squares_2 = [x * 2 for x in range(1,10)]
+
+print(squares_2)
+
+# >> [1, 2, 3, 4, 5, 6, 7, 8, 9]
+# >> [2, 4, 6, 8, 10, 12, 14, 16, 18]
+
+
+# List comp + loops + if
+
+squares = [a for a in range(1,20) if a%2 == 0]
+
+print(squares)
+
+# >> [2, 4, 6, 8, 10, 12, 14, 16, 18]
+
+```
+
+Exercises
+
+```py
+
+my_string = 'Secret agents are super good at staying hidden'
+
+for word in my_string.split():
+    if word[0] == 's' or word[0] == 'S':
+        print(word)
+
+# >> Secret
+# >> super
+# >> staying
+
+code = [x[0] for x in my_string.split()]
+
+print(code)
+
+# >> ['S', 'a', 'a', 's', 'g', 'a', 's', 'h']
 
 ```
 
@@ -446,6 +597,22 @@ print(friends.values())
 
 # >> dict_keys(['Jon', 'Sam', 'Steve', 'Rudy'])
 # >> dict_values([24, 36, 41, 33])
+
+```
+
+#### continue:
+
+```py
+
+for person, age in friends.items():
+    if person == "Jon":
+        continue
+
+    print(f"{person} is {age}")
+
+# >> Sam is 36
+# >> Steve is 41
+# >> Rudy is 33
 
 ```
 
@@ -650,6 +817,13 @@ add(4)
 A good reason to not use this one. Better practice would be to define it in the function rather than using a variable.
 
 Too risky and confusing for others.
+
+<br>
+
+# Functions.
+asdasd
+
+<br>
 
 <br>
 
@@ -1795,7 +1969,7 @@ Executing code on a file as if we're making a function using ```with``` and ```a
 
 ```py
 
-with open('test.txt') as my_file:
+with open('test.txt', mode='r') as my_file:
     print(my_file.read())
 
 ```

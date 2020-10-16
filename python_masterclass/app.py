@@ -1,4 +1,8 @@
-Executing code on a file as if we're making a function using ```with``` and ```as```. This also automatically CLOSES the file once executed.
+my_string = [1, 2, 3]
+my_list = ['a', 'b', 'c']
 
-with open('test.txt') as my_file:
-    print(my_file.read())
+pop = list(zip(my_string, my_list))
+
+print(pop)
+
+# > [(1, 'a'), (2, 'b'), (3, 'c')]
