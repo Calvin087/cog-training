@@ -1,15 +1,17 @@
-my_string = 'Secret agents are super good at staying hidden'
+class Student:
+    def __init__(self, name, grades, height):
+        self.name = name
+        self.grades = grades
+        self.height = height
 
-for word in my_string.split():
-    if word[0] == 's' or word[0] == 'S':
-        print(word)
+    def __repr__(self):
+        return f"<Student({self.name}, {self.grades})>"
 
-# >> Secret
-# >> super
-# >> staying
+    def __len__(self):
+        return self.height
 
-code = [x[0] for x in my_string.split()]
+cally = Student("Cally", (1,2,3,4,5), 177)
 
-print(code)
+print(len(cally))
 
-# >> ['S', 'a', 'a', 's', 'g', 'a', 's', 'h']
+# >> 177

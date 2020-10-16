@@ -19,21 +19,25 @@
     - [For Loops in Dictionaries / .values() .keys() / items()](#for-loops-in-dictionaries--values-keys--items)
       - [continue:](#continue)
   - [Destructuring Variables](#destructuring-variables)
-  - [Functions (new)](#functions-new)
+  - [Functions](#functions)
     - [Positional arguemnts](#positional-arguemnts)
     - [Default Values as Variables](#default-values-as-variables)
-- [Functions.](#functions)
-- [Intermediate Section.](#intermediate-section)
-  - [Lambda Functions](#lambda-functions)
-  - [Dictionary Comprehension (goooood / new)](#dictionarycomprehension-goooood--new)
-  - [Unpacking Arguments (forgotten info)](#unpacking-arguments-forgotten-info)
-  - [Unpacking Keyword Arguments (new)](#unpacking-keyword-arguments-new)
-  - [Object Oriented Programming (refresher)](#object-oriented-programming-refresher)
-    - [Magic Methods ```__str__``` / ```__repr__``` - Object representation](#magic-methods-__str__--__repr__---object-representation)
+- [Functions](#functions-1)
+- [Object Oriented Programming (refresher)](#object-oriented-programming-refresher)
+      - [Object.methods()](#objectmethods)
+    - [Magic Methods ```__str__``` / ```__repr__``` / ```__len__```- Object representation](#magic-methods-__str__--__repr__--__len__--object-representation)
     - [@ClassMethods / @StaticMethods (research more)](#classmethods--staticmethods-research-more)
       - [Class methods expanded](#class-methods-expanded)
     - [Inheritance (used less than composition)](#inheritance-used-less-than-composition)
     - [Class Composition (used more often than inheritance)?](#class-composition-used-more-often-than-inheritance)
+  - [Private Methods](#private-methods)
+- [Intermediate Section.](#intermediate-section)
+  - [Lambda Functions / map(), filter()](#lambda-functions--map-filter)
+      - [map()](#map)
+      - [filter()](#filter)
+  - [Dictionary Comprehension (goooood / new)](#dictionarycomprehension-goooood--new)
+  - [Unpacking Arguments (forgotten info)](#unpacking-arguments-forgotten-info)
+  - [Unpacking Keyword Arguments (new)](#unpacking-keyword-arguments-new)
   - [Type Hinting](#type-hinting)
   - [Imports](#imports)
     - [Relative Imports](#relative-imports)
@@ -704,22 +708,11 @@ print(tail)
 
 <br>
 
-## Functions (new)
+## Functions
 
 <br>
 
-Something to note is not to reuse variable names even inside functions. This may be valid in other languages but not ```Python```.
-
-```py
-
-book_name = "Power" # <--
-
-def read_a_book():
-    book_name = book_name + "something" # <--
-
-```
-
-The variable scope is a little different here than JS and variables seem to be reachable in various ways inside functions. There will be a crash.
+As always, make sure to define functions before you call them, and define variables before defining functions to be on the safe side.
 
 ```py
 
@@ -732,8 +725,6 @@ def read_a_book():
 read_a_book() # <-- Good
 
 ```
-
-As always, make sure to define functions before you call them, and define variables before defining functions to be on the safe side.
 
 ```PASS``` means do nothing?? Need to know when to use this.
 
@@ -820,10 +811,398 @@ Too risky and confusing for others.
 
 <br>
 
-# Functions.
-asdasd
+# Functions
 
 <br>
+
+---
+
+---
+
+<br>
+
+# Object Oriented Programming (refresher)
+
+<br>
+
+To make life easier, we make objects/classes. We can add methods to these objects to make the code look cleaner for human legibility.
+
+It looks like we can store tuples inside the objects/classes also.
+
+```py
+
+class Student:
+    
+    # Class object attribute.
+    # Available but not normal
+
+    school = "Stanley Tech"
+
+    def __init__(self, name, grades):
+        self.name = name # indentation is important here also.
+        self.grades = grades
+
+
+cally = Student("Cally", (1,2,3,4,5))
+
+print(cally.name)
+print(cally.grades)
+print(cally.school)
+
+# >> Cally
+# >> (1, 2, 3, 4, 5)
+# >> Stanley Tech
+
+```
+
+#### Object.methods()
+
+```py
+
+class Student:
+    def __init__(self, name, grades):
+        self.name = name
+        self.grades = grades
+
+    def average(self): # always takes self
+        return sum(self.grades) / len(self.grades)
+
+
+cally = Student("Cally", (1,2,3,4,5))
+
+print(cally.average) # stupid mistake, I activated the method but didn't call it.
+print(cally.average()) # you have to call the class methods for them to run correctly ie: with "()"
+
+# >> <bound method Student.average of <__main__.Student object at 0x10b658fa0>> <-- INCORRECT
+
+# >> 3.0 <-- CORRECT    
+
+```
+
+---
+
+<br>
+
+### Magic Methods ```__str__``` / ```__repr__``` / ```__len__```- Object representation
+
+<br>
+
+Using the class from the last example, simply trying to print the info doesn't bring back anything that is useful for a human.
+
+```py
+
+class Student:
+    def __init__(self, name, grades):
+        self.name = name
+        self.grades = grades
+
+    def average(self): # always takes self
+        return sum(self.grades) / len(self.grades)
+
+
+cally = Student("Cally", (1,2,3,4,5))
+
+print(cally)
+
+# >> <__main__.Student object at 0x107588fa0>
+
+```
+
+Apparently Magic Methods allows us to get around this. ```__str__``` allows us to convert our method into a string representation.
+
+```py
+
+class Student:
+    def __init__(self, name, grades):
+        self.name = name
+        self.grades = grades
+
+    def __str__(self):
+        return f"Student: {self.name}'s grades are {self.grades} which average out to {self.average()}"
+        # turns out we can print functions inside strings!
+        # Notice that I'm not calling Print()
+        # I'm only printing the "Cally" child object.
+        # This prints by default
+    
+    def average(self): # always takes self
+        return sum(self.grades) / len(self.grades)
+
+
+cally = Student("Cally", (1,2,3,4,5))
+
+print(cally)
+
+#  >> Student: Cally's grades are (1, 2, 3, 4, 5) which average out to 3.0
+
+```
+
+The ```__repr__``` method gives us another string type, that allows us to read and replicate the contents and layout of an object. NOT entirely sure the use of this yet.
+
+```py
+
+class Student:
+    def __init__(self, name, grades):
+        self.name = name
+        self.grades = grades
+
+    def __repr__(self):
+        return f"<Student({self.name}, {self.grades})>"
+
+cally = Student("Cally", (1,2,3,4,5))
+
+print(cally)
+
+# >> <Student(Cally, (1, 2, 3, 4, 5))>
+
+```
+
+The ```__len__``` method gives us another string type, that allows us to read and replicate the contents and layout of an object. NOT entirely sure the use of this yet.
+
+```py
+
+class Student:
+    def __init__(self, name, grades, height):
+        self.name = name
+        self.grades = grades
+        self.height = height
+
+    def __repr__(self):
+        return f"<Student({self.name}, {self.grades})>"
+
+    def __len__(self):
+        return self.height
+
+cally = Student("Cally", (1,2,3,4,5), 177)
+
+print(len(cally))
+
+# >> 177
+
+```
+
+---
+
+<br>
+
+### @ClassMethods / @StaticMethods (research more)
+
+<br>
+
+- **Instance methods** are used for most things. When you want to produce an action, using the data inside the object. Also if you want to call something to modify the data inside the ```self```.
+
+- **Class** are used as **Factories** *(what?)*
+
+- **Static** is just to place / organise methods (not used as much as the other two).
+
+```py
+
+class ClassTest:
+    # classes don't always need init if you have nothing to instantiate.
+
+    def instance_method(self):
+        print(f"Called instance method of {self}")
+
+    @classmethod
+    def class_method(cls): # common practice to name param as "cls"
+        print(f"Called class_method of {cls}")
+
+    @staticmethod
+    def static_method(): # Don't receive anything 
+        print(f"Called static_method and it's boring")
+
+
+Tally = ClassTest()
+
+
+Tally.instance_method()
+Tally.class_method() # automatically passes itself as a param
+Tally.static_method()
+
+# >> Called instance method of <__main__.ClassTest object at 0x10617bee0>
+# >> Called class_method of <class '__main__.ClassTest'>
+# >> Called static_method and it's boring
+
+```
+
+<br>
+
+#### Class methods expanded
+
+<br>
+
+Allows me to assign various parts of a new object without it being passed in. All I have to do is call the correct method while making the new object and the ```@classmethod``` assigns things using the data stored within the class.
+
+
+```py
+
+class Book:
+    TYPES = ("hardcover", "paperback")
+    # Data stored in a class / organisation reasons
+
+    def __init__(self, name, book_type, weight):
+        self.name = name
+        self.book_type = book_type
+        self.weight = weight
+
+    def __repr__(self):
+        return f"<Book Title: {self.name}, {self.book_type}, weighing {self.weight}g>"
+
+    @classmethod
+    def hardcover(cls, name, weight):
+        return cls(name, cls.TYPES[0], weight + 100)
+        # cls refers to Book. ie: Book(name, ...)
+        # cls refers to Book. ie: cls(name, ...) = same thing as above
+
+    # This is using an internal method to create a new object.
+    # Automatically assigns "Hardcover" to the new object I'm tying to
+    # create outisde of this class ie: new_book.
+
+    @classmethod
+    def paperback(cls, name, weight):
+        return cls(name, cls.TYPES[1], weight + 50)
+
+
+hard_book = Book.hardcover("Power",  1300)
+# Only two arguments have been passed on to this,
+# but the result is that it has been assigned hardcover using the 
+# @classmethod of .hardcover.
+
+light_book = Book.paperback("Python 101",  1000)
+
+print(hard_book)
+print(light_book)
+
+# >> <Book Title: Power, hardcover, weighing 1400g>
+# >> <Book Title: Python 101, paperback, weighing 1050g>
+
+```
+
+<br>
+
+### Inheritance (used less than composition)
+
+<br>
+
+Super is what is used to call / copy all the functionality from the Parent class to be used in the child class
+
+```py
+
+class Device:
+    def __init__(self, name, connected_by):
+        self.name = name
+        self.connected_by = connected_by
+        self.connected = True
+
+    def __str__(self):
+        return f"Device: {self.name!r} ({self.connected_by})"
+        # !r prints out the __repr__ version of the name
+    
+    def disconnected(self):
+        self.connected = False
+        print("discconnected")
+
+
+class Printer(Device):
+    def __init__(self, name, connected_by, capacity): # All the same +1
+        super().__init__(name, connected_by)
+            # Gets / copies the parent class
+        self.capacity = capacity
+        self.remaining_pages = capacity
+            # Adding our own unique setters
+
+    def __str__(self):
+        return f"{super().__str__()} ({self.remaining_pages} pages remaining.)"
+
+    def print(self, pages):
+        if not self.connected:
+            print("Printer is not connected")
+            return
+        print(f"Printing {pages} pages.")
+        self.remaining_pages -= pages
+
+printer = Printer("Printer", "USB", 500)
+print(printer.print(20))
+print(printer)
+printer.disconnected()
+print(printer.print(20))
+
+# >> Printing 20 pages.
+# >> None <--- Why is this happening
+# >> Device: 'Printer' (USB) (480 pages remaining.)
+# >> discconnected
+# >> Printer is not connected
+# >> None <--- Why is this happening
+
+```
+
+---
+
+<br>
+
+### Class Composition (used more often than inheritance)?
+
+<br>
+
+Typically with inheritance, we're treating it like evolutionary inheritance. As if the ```child``` is the same and something more than the ```parent```. All tigers are mammals but not all mammals are tigers.
+
+There's no reason to inherit things if they're not going to be used.
+
+With composition, I've created a class that accepts and organises other class objects, the same way a bookshelf organises books.
+
+```py
+
+class Bookshelf:
+    def __init__(self, *books):
+        # Accepts a number of books, not only one at a time
+        self.books = books
+
+    def __str__(self):
+        return f"Bookshelf with {len(self.books)} books."
+
+
+class Book:
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):
+        return f"Book Title: '{self.name}'"
+
+
+power = Book("Power")
+ttown = Book("Toy Town")
+shelf = Bookshelf(power, ttown)
+
+print(power)
+print(ttown)
+print(shelf)
+print(shelf.books) # Gives me all books on bookshelf
+
+# >> Book Title: 'Power'
+# >> Book Title: 'Toy Town'
+# >> Bookshelf with 2 books.
+# >> (<__main__.Book object at 0x107b65fa0>, <__main__.Book object at 0x107b65e80>) <-- What do i even do with this??
+
+```
+
+---
+
+<br>
+
+## Private Methods
+
+<br>
+
+Methods within objects that you don't want to be avaialable to users etc.
+
+```py
+
+def _private_method(self):
+    print("Private Method")
+    
+    # The underscore makes it private but doesn't really hide it just guides people away from using it.
+
+```
+
 
 <br>
 
@@ -832,7 +1211,7 @@ All the things I don't have a clue about. Coffee break.
 
 <br>
 
-## Lambda Functions
+## Lambda Functions / map(), filter()
 
 <br>
 
@@ -857,6 +1236,32 @@ add = lambda arg1, arg2 : arg1 + arg2
 add(4, 4)
 
 # >> 8 ???!!!
+
+```
+
+```py
+add = lambda num : num * 200
+
+print(add(2))
+
+#>> 400
+
+```
+
+```py
+code = list(map(lambda x : x ** 2, [2, 4, 5]))
+
+print(code)
+
+# >> [4, 16, 25]
+
+```
+
+```py
+
+code = list(filter(lambda x : x % 2 == 0, [1, 3, 10, 2, 4, 5]))
+
+print(code)
 
 ```
 
@@ -885,6 +1290,52 @@ print(doubled2)
 ```
 
 Have to use ```list``` to print out something readable with the ```map()``` example.
+
+#### map()
+
+```py
+
+my_nums = [1, 2, 3, 4, 5]
+
+def square(num):
+    return num ** 2
+
+for item in map(square, my_nums):
+    # Needs Two Functions
+    # We also don't call the function being
+    # passed because Map is doing that already
+    print(item)
+
+# >> 1
+# >> 4
+# >> 9
+# >> 16
+# >> 25
+
+mapped = list(map(square, my_nums))
+
+print(mapped)
+
+# >> [1, 4, 9, 16, 25]
+
+```
+
+#### filter()
+
+```py
+
+my_nums = [1, 2, 3, 4, 5, 10, 100]
+
+def check_even(num):
+    return num % 2 == 0
+
+filtered = list(filter(check_even, my_nums))
+
+print(filtered)
+
+# >> [2, 4, 10, 100]
+
+```
 
 ---
 
@@ -1139,335 +1590,7 @@ print_nice(**details)
 
 ```
 
----
 
-<br>
-
-## Object Oriented Programming (refresher)
-
-<br>
-
-To make life easier, we make objects/classes. We can add methods to these objects to make the code look cleaner for human legibility.
-
-It looks like we can store tuples inside the objects/classes also.
-
-```py
-
-class Student:
-    def __init__(self, name, grades):
-        self.name = name # indentation is important here also.
-        self.grades = grades
-
-
-cally = Student("Cally", (1,2,3,4,5))
-
-print(cally.name)
-print(cally.grades)
-
-# >> Cally
-# >> (1, 2, 3, 4, 5)
-
-```
-
-```py
-
-class Student:
-    def __init__(self, name, grades):
-        self.name = name
-        self.grades = grades
-
-    def average(self): # always takes self
-        return sum(self.grades) / len(self.grades)
-
-
-cally = Student("Cally", (1,2,3,4,5))
-
-print(cally.average) # stupid mistake, I activated the method but didn't call it.
-print(cally.average()) # you have to call the class methods for them to run correctly ie: with "()"
-
-# >> <bound method Student.average of <__main__.Student object at 0x10b658fa0>> <-- INCORRECT
-
-# >> 3.0 <-- CORRECT    
-
-```
----
-
-<br>
-
-### Magic Methods ```__str__``` / ```__repr__``` - Object representation
-
-<br>
-
-Using the class from the last example, simply trying to print the info doesn't bring back anything that is useful for a human.
-
-```py
-
-class Student:
-    def __init__(self, name, grades):
-        self.name = name
-        self.grades = grades
-
-    def average(self): # always takes self
-        return sum(self.grades) / len(self.grades)
-
-
-cally = Student("Cally", (1,2,3,4,5))
-
-print(cally)
-
-# >> <__main__.Student object at 0x107588fa0>
-
-```
-
-Apparently Magic Methods allows us to get around this. ```__str__``` allows us to convert our method into a string representation.
-
-```py
-
-class Student:
-    def __init__(self, name, grades):
-        self.name = name
-        self.grades = grades
-
-    def __str__(self):
-        return f"Student: {self.name}'s grades are {self.grades} which average out to {self.average()}"
-        # turns out we can print functions inside strings!
-        # Notice that I'm not calling Print()
-        # I'm only printing the "Cally" child object.
-        # This prints by default
-    
-    def average(self): # always takes self
-        return sum(self.grades) / len(self.grades)
-
-
-cally = Student("Cally", (1,2,3,4,5))
-
-print(cally)
-
-```
-
-The ```__repr__``` method gives us another string type, that allows us to read and replicate the contents and layout of an object. NOT entirely sure the use of this yet.
-
-```py
-
-class Student:
-    def __init__(self, name, grades):
-        self.name = name
-        self.grades = grades
-
-    def __repr__(self):
-        return f"<Student({self.name}, {self.grades})>"
-
-cally = Student("Cally", (1,2,3,4,5))
-
-print(cally)
-
-# >> <Student(Cally, (1, 2, 3, 4, 5))>
-
-```
-
----
-
-<br>
-
-### @ClassMethods / @StaticMethods (research more)
-
-<br>
-
-- **Instance methods** are used for most things. When you want to produce an action, using the data inside the object. Also if you want to call something to modify the data inside the ```self```.
-
-- **Class** are used as **Factories** *(what?)*
-
-- **Static** is just to place / organise methods (not used as much as the other two).
-
-```py
-
-class ClassTest:
-    # classes don't always need init if you have nothing to instantiate.
-
-    def instance_method(self):
-        print(f"Called instance method of {self}")
-
-    @classmethod
-    def class_method(cls): # common practice to name param as "cls"
-        print(f"Called class_method of {cls}")
-
-    @staticmethod
-    def static_method(): # Don't receive anything 
-        print(f"Called static_method and it's boring")
-
-
-Tally = ClassTest()
-
-
-Tally.instance_method()
-Tally.class_method() # automatically passes itself as a param
-Tally.static_method()
-
-# >> Called instance method of <__main__.ClassTest object at 0x10617bee0>
-# >> Called class_method of <class '__main__.ClassTest'>
-# >> Called static_method and it's boring
-
-```
-
-<br>
-
-#### Class methods expanded
-
-<br>
-
-Allows me to assign various parts of a new object without it being passed in. All I have to do is call the correct method while making the new object and the ```@classmethod``` assigns things using the data stored within the class.
-
-
-```py
-
-class Book:
-    TYPES = ("hardcover", "paperback")
-    # Data stored in a class / organisation reasons
-
-    def __init__(self, name, book_type, weight):
-        self.name = name
-        self.book_type = book_type
-        self.weight = weight
-
-    def __repr__(self):
-        return f"<Book Title: {self.name}, {self.book_type}, weighing {self.weight}g>"
-
-    @classmethod
-    def hardcover(cls, name, weight):
-        return cls(name, cls.TYPES[0], weight + 100)
-        # cls refers to Book. ie: Book(name, ...)
-        # cls refers to Book. ie: cls(name, ...) = same thing as above
-
-    # This is using an internal method to create a new object.
-    # Automatically assigns "Hardcover" to the new object I'm tying to
-    # create outisde of this class ie: new_book.
-
-    @classmethod
-    def paperback(cls, name, weight):
-        return cls(name, cls.TYPES[1], weight + 50)
-
-
-hard_book = Book.hardcover("Power",  1300)
-# Only two arguments have been passed on to this,
-# but the result is that it has been assigned hardcover using the 
-# @classmethod of .hardcover.
-
-light_book = Book.paperback("Python 101",  1000)
-
-print(hard_book)
-print(light_book)
-
-# >> <Book Title: Power, hardcover, weighing 1400g>
-# >> <Book Title: Python 101, paperback, weighing 1050g>
-
-```
-
-<br>
-
-### Inheritance (used less than composition)
-
-<br>
-
-Super is what is used to call / copy all the functionality from the Parent class to be used in the child class
-
-```py
-
-class Device:
-    def __init__(self, name, connected_by):
-        self.name = name
-        self.connected_by = connected_by
-        self.connected = True
-
-    def __str__(self):
-        return f"Device: {self.name!r} ({self.connected_by})"
-        # !r prints out the __repr__ version of the name
-    
-    def disconnected(self):
-        self.connected = False
-        print("discconnected")
-
-
-class Printer(Device):
-    def __init__(self, name, connected_by, capacity): # All the same +1
-        super().__init__(name, connected_by)
-            # Gets / copies the parent class
-        self.capacity = capacity
-        self.remaining_pages = capacity
-            # Adding our own unique setters
-
-    def __str__(self):
-        return f"{super().__str__()} ({self.remaining_pages} pages remaining.)"
-
-    def print(self, pages):
-        if not self.connected:
-            print("Printer is not connected")
-            return
-        print(f"Printing {pages} pages.")
-        self.remaining_pages -= pages
-
-printer = Printer("Printer", "USB", 500)
-print(printer.print(20))
-print(printer)
-printer.disconnected()
-print(printer.print(20))
-
-# >> Printing 20 pages.
-# >> None <--- Why is this happening
-# >> Device: 'Printer' (USB) (480 pages remaining.)
-# >> discconnected
-# >> Printer is not connected
-# >> None <--- Why is this happening
-
-```
-
----
-
-<br>
-
-### Class Composition (used more often than inheritance)?
-
-<br>
-
-Typically with inheritance, we're treating it like evolutionary inheritance. As if the ```child``` is the same and something more than the ```parent```. All tigers are mammals but not all mammals are tigers.
-
-There's no reason to inherit things if they're not going to be used.
-
-With composition, I've created a class that accepts and organises other class objects, the same way a bookshelf organises books.
-
-```py
-
-class Bookshelf:
-    def __init__(self, *books):
-        # Accepts a number of books, not only one at a time
-        self.books = books
-
-    def __str__(self):
-        return f"Bookshelf with {len(self.books)} books."
-
-
-class Book:
-    def __init__(self, name):
-        self.name = name
-
-    def __str__(self):
-        return f"Book Title: '{self.name}'"
-
-
-power = Book("Power")
-ttown = Book("Toy Town")
-shelf = Bookshelf(power, ttown)
-
-print(power)
-print(ttown)
-print(shelf)
-print(shelf.books) # Gives me all books on bookshelf
-
-# >> Book Title: 'Power'
-# >> Book Title: 'Toy Town'
-# >> Bookshelf with 2 books.
-# >> (<__main__.Book object at 0x107b65fa0>, <__main__.Book object at 0x107b65e80>) <-- What do i even do with this??
-
-```
 ---
 
 <br>
