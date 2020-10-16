@@ -31,6 +31,7 @@
     - [Inheritance (used less than composition)](#inheritance-used-less-than-composition)
     - [Class Composition (used more often than inheritance)?](#class-composition-used-more-often-than-inheritance)
   - [Private Methods](#private-methods)
+- [Date and Time](#date-and-time)
 - [Intermediate Section.](#intermediate-section)
   - [Lambda Functions / map(), filter()](#lambda-functions--map-filter)
       - [map()](#map)
@@ -40,9 +41,11 @@
   - [Unpacking Keyword Arguments (new)](#unpacking-keyword-arguments-new)
   - [Type Hinting](#type-hinting)
   - [Imports](#imports)
+      - [name / main](#name--main)
     - [Relative Imports](#relative-imports)
-  - [Errors in Python (try / catch)](#errors-in-python-try--catch)
+  - [Errors in Python (try / except)](#errors-in-python-try--except)
     - [Custom Error Classes](#custom-error-classes)
+    - [Debugging ```__Trace__```](#debugging-__trace__)
   - [First Class Functions (Important)](#first-class-functions-important)
   - [Decorators in Python (more research)](#decorators-in-python-more-research)
   - [@ Decorator syntax (more research + links)](#-decorator-syntax-more-research--links)
@@ -956,7 +959,7 @@ print(cally)
 
 ```
 
-The ```__len__``` method gives us another string type, that allows us to read and replicate the contents and layout of an object. NOT entirely sure the use of this yet.
+The ```__len__``` method gives us another string type.
 
 ```py
 
@@ -1202,7 +1205,46 @@ def _private_method(self):
     # The underscore makes it private but doesn't really hide it just guides people away from using it.
 
 ```
+<br>
 
+# Date and Time
+
+<br>
+
+```py
+
+import datetime
+
+time = datetime.time(1,14,4,1)
+
+print(time)
+print(time.hour)
+print(time.minute)
+print(time.second)
+print(time.microsecond)
+
+past = datetime.date(2018,10,11)
+today = datetime.date.today()
+right_now = datetime.datetime.now()
+
+print(right_now)
+
+```
+**Cheap speed test**
+
+```py
+before = datetime.datetime.now()
+
+test = [x ** 2 for x in range(100)]
+
+after = datetime.datetime.now()
+
+diff = after - before
+
+print(diff)
+```
+
+---
 
 <br>
 
@@ -1617,6 +1659,13 @@ You can import hinting modules that tell you whether you're passing incorrect ty
 
 <br>
 
+#### name / main
+
+```py
+if __name__ == "__main__":
+    run() # main function goes here.
+```
+
 ```__name__``` is a global variable that changes depending on which file you're in. ```Sys``` allows me to see all the paths in my current folder and any things i have been imported at the top of the file.
 
 Also to remember, imported files are run back to front. So the file I'm in gets run last and the import runs before hand.
@@ -1653,7 +1702,7 @@ from mymodule import xyz
 
 <br>
 
-## Errors in Python (try / catch)
+## Errors in Python (try / except)
 
 <br>
 
@@ -1752,6 +1801,28 @@ except TooManyPagesReadError as e:
 # >> You tried to read too many pages
 
 ```
+
+---
+
+<br>
+
+### Debugging ```__Trace__```
+
+<br>
+
+We're able to stop the program in the middle of it's operations and play around in the shell to see what's going on.
+
+```py
+
+import pdb
+
+pdb.set_trace()
+# place this in the suspected area to check current variable types etc
+
+
+```
+
+
 
 ---
 
