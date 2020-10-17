@@ -45,6 +45,6 @@ def brute_force(text):
         print(decrypt_it(text, n))
         print('\n')
 
-print(encrypt_it("Cal", 3))
-print(decrypt_it("fdo", 3))
-print(brute_force("fdo"))
+# print(encrypt_it("Cal", 3))
+# print(decrypt_it("fdo", 3))
+# print(brute_force("fdo"))
