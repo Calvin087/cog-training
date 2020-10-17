@@ -23,6 +23,7 @@ class Encrypt_it():
             output += message[i]
             # so we concate i
             output += random.sample(self.true_alpha, 1)[0]
+            # random sample returns a list
             # then we concat the first[0] random sample from the alpha list
 
         self.encrypted_phrase = output[::-1]
