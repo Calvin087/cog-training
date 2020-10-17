@@ -1,1 +1,1 @@
-i
+self.seed

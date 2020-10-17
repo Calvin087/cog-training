@@ -1,6 +1,6 @@
 # So i cheated and imported my c cyper from the last exercise.
 # I doubt this is the correct way to do it, but it works 
-# for smaller strings.
+# for small
 
 
 import string
