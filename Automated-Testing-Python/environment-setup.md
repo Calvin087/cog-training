@@ -39,6 +39,16 @@ virtualenv venv --python=python'Your-Version'
 virtualenv venv --python=python3.9
 ```
 
+Try this for windows. How 
+```
+py -m venv env
+
+.\env\Scripts\activate
+
+deactivate
+
+```
+
 This creates a folder called ```venv``` (virtual environment?). It copies Python into this folder **without** packages and libraries.
 
 > Activating Virtual Env
