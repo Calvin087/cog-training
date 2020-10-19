@@ -42,7 +42,7 @@ for n in range(read_spy_pdf.getNumPages()):
 
 for page in range(len(extracted_pages)):
 
-    pattern = r'[\w]+@[\w.]+'
+    pattern = r'[\w_.-]+@[\w_.-]+'
     match = re.search(pattern, extracted_pages[page])
     
     if match != None:
