@@ -40,10 +40,10 @@ for folder, sub_folders, files in os.walk('test/unpacked_mission'):
 
         findings = pattern_search(full_path)
 
-        results.append(findings)
+        if findings != '':
+            results.append(findings)
 
 
 for r in results:
 
-    if r != '':
-        print(r.group())
+    print(r.group())
