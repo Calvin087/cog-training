@@ -14,3 +14,5 @@ black_image.putalpha(50)
 
 text_image.paste(black_image, box=None, mask=black_image)
 text_image.show()
+
+# >> go to https://goo.gl/LDo5Nt
