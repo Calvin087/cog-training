@@ -1,5 +1,6 @@
 from .base_elements import BaseElement
 from .base_pages import BasePage
+from .locator_class import Locator
 from selenium.webdriver.common.by import By
 
 class TrialPage(BasePage):
@@ -8,40 +9,44 @@ class TrialPage(BasePage):
 
     @property
     def stone_input(self):
-        locator = (By.CSS_SELECTOR, 'input#r1Input')
+        locator = Locator(by=By.CSS_SELECTOR, value='input#r1Input')
 
         return BaseElement(
             driver=self.driver,
-            by=locator[0],
-            value=locator[1]
+            locator=locator,
+                # by=locator[0],
+                # value=locator[1]
         )
     
     @property
     def stone_button(self):
-        locator = (By.CSS_SELECTOR, 'button#r1Btn')
+        locator = Locator(by=By.CSS_SELECTOR, value='button#r1Btn')
 
         return BaseElement(
             driver=self.driver,
-            by=locator[0],
-            value=locator[1]
+            locator=locator,
+                # by=locator[0],
+                # value=locator[1]
         )
 
     @property
     def secrets_input(self):
-        locator = (By.CSS_SELECTOR, 'input#r2Input')
+        locator = Locator(by=By.CSS_SELECTOR, value='input#r2Input')
 
         return BaseElement(
             driver=self.driver,
-            by=locator[0],
-            value=locator[1]
+            locator=locator,
+                # by=locator[0],
+                # value=locator[1]
         )
 
     @property
     def secrets_button(self):
-        locator = (By.CSS_SELECTOR, 'button#r2Butn')
+        locator = Locator(by=By.CSS_SELECTOR, value='button#r2Butn')
 
         return BaseElement(
             driver=self.driver,
-            by=locator[0],
-            value=locator[1]
+            locator=locator,
+                # by=locator[0],
+                # value=locator[1]
         )

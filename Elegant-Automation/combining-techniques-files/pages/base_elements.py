@@ -3,15 +3,18 @@
 
 # WAIT IS THE BREAD AND BUTTER OF AUTOMATED TESTING!??
 
+from .locator_class import Locator
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 class BaseElement(object):
-    def __init__(self, driver, value, by):
+    def __init__(self, driver, locator):
         self.driver = driver
-        self.value = value
-        self.by = by
-        self.locator = (self.by, self.value)
+        self.locator = locator
+        
+            # self.value = value
+            # self.by = by
+            # self.locator = (self.by, self.value)
 
         self.web_element = None
         # this is none until the method sets it, so that we can use the (wait)

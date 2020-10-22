@@ -4,6 +4,7 @@
 
 from .base_elements import BaseElement
 from .base_pages import BasePage
+from .locator_class import Locator 
 from selenium.webdriver.common.by import By
 
 class TrainingGroundPage(BasePage):
@@ -15,12 +16,14 @@ class TrainingGroundPage(BasePage):
     @property
     #Allows me to go from calling button1() to just button
     def button1(self):
-        locator = (By.ID, 'b1')
+        locator = Locator(by=By.ID, value='b1')
+            # locator = (By.ID, 'b1')
 
         return BaseElement(
             driver=self.driver,
-            by=locator[0],
-            value=locator[1]
+            locator=locator
+                # by=locator[0],
+                # value=locator[1]
         )
 
 # -----------------------------------------
