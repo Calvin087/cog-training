@@ -17,7 +17,8 @@ class BaseElement(object):
         # this is none until the method sets it, so that we can use the (wait)
 
         self.find()
-        # Calls the method below to find and set the element.
+        # Calls the method below to find and set
+        # the element before anything else happens.
 
     def find(self):
         
@@ -33,12 +34,20 @@ class BaseElement(object):
 
         return None
 
+    def input_text(self, text):
+        self.web_element.send_keys(text)
+        return None
+
     def click(self):
         element = WebDriverWait(
             self.driver, 10).until(EC.element_to_be_clickable(self.locator))
         
         element.click()
         return None
+
+    def attribute(self, attr_name):
+        attribute = self.web_element.get_attribute(attr_name)
+        return attribute
 
     @property
     def text(self):

@@ -1,31 +1,23 @@
 from selenium import webdriver
 from pages.training_page_object import TrainingGroundPage
+from pages.trial_page import TrialPage
 
 # Test Set up
 browser = webdriver.Chrome()
 
-test_value = 'Test worked bro!' 
+# Trial Page
+trial_page = TrialPage(driver=browser)
+trial_page.go()
+trial_page.stone_input.input_text('rock')
+trial_page.stone_button.click()
 
-# TEST
-# using the class to build a new object, passing the driver, named argument
+input('continue?')
+
+# Training Page
 training_page = TrainingGroundPage(driver=browser)
-
-# Now we should have a new page that I can call methods on --------
-
-# Actions to take
 training_page.go()
-assert training_page.button1.text == 'Button1'
-training_page.button1.click()
+assert training_page.button1.text == 'Button1', 'problems on button1'
+
+input('continue?')
 
 browser.quit()
-
-# training_page.type_into_input(test_value)
-# training_page.click_button_1() <-- the alert breaks this but course doesn't address the fix
-
-
-# Checks to make no longer needed
-    # ORIGINAL METHOD --------------
-        # text_from_input = training_page.get_input_text()
-        # assert text_from_input == test_value, f"Test failed message ({test_value})"
-        # print('test passed')
-    # ORIGINAL METHOD --------------

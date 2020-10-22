@@ -8,6 +8,7 @@ from selenium.webdriver.common.by import By
 
 class TrainingGroundPage(BasePage):
     
+    url = "https://techstepacademy.com/training-ground"
 
     # IMPROVED METHOD --------------
 
