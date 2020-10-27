@@ -16,13 +16,15 @@
     - [startswith()](#startswith)
   - [Dictionaries](#dictionaries)
     - [Lists of Dictionaries](#lists-of-dictionaries)
-    - [For Loops in Dictionaries / .values() .keys() / items()](#for-loops-in-dictionaries--values-keys--items)
+    - [For Loops in Dictionaries / .values() .keys() / .items()](#for-loops-in-dictionaries--values-keys--items)
       - [continue:](#continue)
+  - [Dictionary value checks](#dictionary-value-checks)
   - [Destructuring Variables](#destructuring-variables)
   - [Functions](#functions)
     - [Positional arguemnts](#positional-arguemnts)
     - [Default Values as Variables](#default-values-as-variables)
-- [Functions](#functions-1)
+  - [Ternary Operators](#ternary-operators)
+- [DocStrings on Functions](#docstrings-on-functions)
 - [Object Oriented Programming (refresher)](#object-oriented-programming-refresher)
       - [Object.methods()](#objectmethods)
     - [Magic Methods ```__str__``` / ```__repr__``` / ```__len__```- Object representation](#magic-methods-__str__--__repr__--__len__--object-representation)
@@ -54,6 +56,12 @@
 - [Working With Files](#working-with-files)
     - [opening, reading, closing](#opening-reading-closing)
     - [with & as while working with files](#with--as-while-working-with-files)
+
+
+
+Todo List
+- Add GitBash to windows so that I can use familiar commands
+- Look at the [windows terminal](https://www.microsoft.com/en-us/p/windows-terminal/9n0dx20hk701?activetab=pivot:overviewtab) instead maybe??
 
 <br>
 
@@ -520,6 +528,20 @@ This basically removes the need for us to do .append() where it's not absolutely
 
 ## Dictionaries
 
+First of all we can create a new dict on the fly
+
+```py
+
+user1 = dict(name = "calvin")
+
+print(user1["name"])
+
+# >> calvin
+
+""
+
+```
+
 These look a lot like objects in Javascript, but work quite differently.
 
 Again like ```Ruby``` these are called key value pairs.
@@ -579,7 +601,7 @@ You have to first locate the item in the LIST using index numbers and [] notatio
 
 <br>
 
-### For Loops in Dictionaries / .values() .keys() / items()
+### For Loops in Dictionaries / .values() .keys() / .items()
 
 I suppose this is how we access the value - by using .items() gives us all the items in the dictionary.
 
@@ -607,6 +629,33 @@ print(friends.values())
 
 ```
 
+Checking if values exist
+
+```py
+
+friends = {"Jon" : 24, "Sam" : 36, "Steve" : 41, "Rudy" : 33}
+
+print("Jon" in friends)
+print(24 in friends.values())
+print("Sam" in friends.keys())
+
+# >> True
+# >> True
+# >> True
+
+```
+
+Updating a key
+
+```py
+
+friends = {"Jon" : 24, "Sam" : 36, "Steve" : 41, "Rudy" : 33}
+
+print(friends.update({"Jon" : 100}))
+# >> {'Jon': 100, 'Sam': 36, 'Steve': 41, 'Rudy': 33}
+
+```
+
 #### continue:
 
 ```py
@@ -624,6 +673,26 @@ for person, age in friends.items():
 ```
 
 <br>
+
+---
+
+<br>
+
+## Dictionary value checks
+
+<br>
+
+If I don't know if a dictionary has a certain value, I can either check or create it on the fly with a default.
+
+```py
+
+friends = {"Jon" : 24, "Sam" : 36, "Steve" : 41, "Rudy" : 33}
+
+print(friends.get("Francis", 22))
+
+```
+
+If Francis exists, it will grab it from the dictionary, but if it doesn't exist, it will return my new value as a default.
 
 ---
 
@@ -812,13 +881,54 @@ A good reason to not use this one. Better practice would be to define it in the 
 
 Too risky and confusing for others.
 
-<br>
-
-# Functions
+---
 
 <br>
+
+## Ternary Operators
+
+<br>
+
+Something that I've forgotten to use while doing code wars if ternaries.
+
+```py
+
+# something if true IF condition ELSE condition if else
+
+is_friend = True
+
+can_message = "message allowed" if is_friend else "not allowed"
+
+print(can_message)
+
+
+```
 
 ---
+
+<br>
+
+# DocStrings on Functions
+
+<br>
+
+These seem pretty cool. Able to get some helper info on functions when called in a certain way.
+
+```py
+
+def killAllHumans(word):
+    '''
+    This function prints {word}
+    In this space I can write comments and have them returned.
+    '''
+    return word
+
+print(killAllHumans.__doc__)
+
+# >> This function prints {word}
+# >> In this space I can write comments and have them returned.
+
+```
 
 ---
 
@@ -1032,6 +1142,8 @@ Tally.static_method()
 #### Class methods expanded
 
 <br>
+
+Looks like I can use these methods inside the class, without making a new object.
 
 Allows me to assign various parts of a new object without it being passed in. All I have to do is call the correct method while making the new object and the ```@classmethod``` assigns things using the data stored within the class.
 
