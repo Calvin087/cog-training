@@ -23,6 +23,7 @@
   - [Functions](#functions)
     - [Positional arguemnts](#positional-arguemnts)
     - [Default Values as Variables](#default-values-as-variables)
+    - [Map(), Fiter(), Zip(), Reduce()](#map-fiter-zip-reduce)
   - [Ternary Operators](#ternary-operators)
 - [DocStrings on Functions](#docstrings-on-functions)
 - [Object Oriented Programming (refresher)](#object-oriented-programming-refresher)
@@ -467,7 +468,7 @@ print(squares_2)
 
 # List comp + loops + if
 
-squares = [a for a in range(1,20) if a%2 == 0]
+squares = [a for a in range(1,20) if a % 2 == 0]
 
 print(squares)
 
@@ -880,6 +881,116 @@ add(4)
 A good reason to not use this one. Better practice would be to define it in the function rather than using a variable.
 
 Too risky and confusing for others.
+
+
+### Map(), Fiter(), Zip(), Reduce()
+
+Again, this sounds familiar. Map() calls the function that I pass it, so I don't have to. The second argument are the values to be mapped over.
+
+It also doesn't affect the original variable. No side effects. It returns a new object instead of mutating the original.
+
+**Map()**
+
+```py
+
+def multi_by_2(item):
+    return item * 2
+
+print(list(map(multi_by_2, [1, 2, 3])))
+
+# >> [2, 4, 6]
+
+# ----------------
+
+my_list = [1, 2, 3]
+
+def multi_by_2(item):
+    return item * 2
+
+print(list(map(multi_by_2, my_list)))
+print(my_list)
+
+# >> [2, 4, 6] - new.
+# >> [1, 2, 3] - old remains the same.
+
+```
+
+Filter returns the values that are true.
+
+**Filter()**
+
+```py
+
+my_list = [1, 2, 3, 4, 5, 6, 7]
+
+def only_odd_nums(item):
+    return item % 2 != 0
+
+print(list(filter(only_odd_nums, my_list)))
+print(my_list)
+
+# >> [1, 3, 5, 7]
+# >> [1, 2, 3, 4, 5, 6, 7]
+
+# -------------------
+
+names = ["dave", "dani", "sam", "tom"]
+
+def names_with_d(item):
+    return item.startswith("d")
+
+print(list(filter(names_with_d, names)))
+print(names)
+
+# >> ['dave', 'dani']
+# >> ['dave', 'dani', 'sam', 'tom']
+
+```
+
+**Zip()**
+
+Zips together any iterables into tuples by index
+
+```py
+
+nums1 = [1, 2, 3]
+nums2 = [10, 20, 30] # List
+nums3 = (100, 200, 300) # Tuple
+
+print(list(zip(nums2, nums3)))
+
+# >> [(1, 10), (2, 20), (3, 30)]
+# >> [(10, 100), (20, 200), (30, 300)]
+
+# --------------------
+
+nums = (100, 200, 300) # Tuple
+names = ["Dave", "Sandy", "Tommy"] # List
+
+print(list(zip(nums, names)))
+
+# >> [(100, 'Dave'), (200, 'Sandy'), (300, 'Tommy')]
+
+```
+
+**Reduce()** - More Research
+
+Have to import Reduce. First we need a function, then the data AND some kind of intial value. Apparently really useful and popular in the community with advanced programmers. Still not entirely sure of it's utility.
+
+```py
+
+from functools import reduce
+
+nums = [1, 2, 3, 4, 5, 6]
+
+def accumulate(acc, item):
+    return acc + item
+
+print(reduce(accumulate, nums, 0))
+
+# >> 21
+
+```
 
 ---
 
@@ -1380,10 +1491,6 @@ lambda arg1, arg2 : arg1 + arg2
 These have no names, so you CAN assign them to variables.
 
 ```py
-add = lambda arg1, arg2 : arg1 + arg2
-```
-
-```py
 
 add = lambda arg1, arg2 : arg1 + arg2
 
@@ -1394,16 +1501,19 @@ add(4, 4)
 ```
 
 ```py
-add = lambda num : num * 200
+times_200 = lambda num : num * 200
 
-print(add(2))
+print(times_200(2))
 
 #>> 400
 
 ```
 
 ```py
-code = list(map(lambda x : x ** 2, [2, 4, 5]))
+
+my_list = [2, 4, 5]
+
+code = list(map(lambda x : x ** 2, my_list))
 
 print(code)
 
