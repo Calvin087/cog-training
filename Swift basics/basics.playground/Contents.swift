@@ -58,7 +58,7 @@ if myHeight > 70 && myWeight >= 100 {
 // Arrays and Array Types
 
 var myArray : [String] = ["one", "two", "four"]
-myArray1.append(5) // <--- NOPE!!
+//myArray1.append(5) // <--- NOPE!!
 
 
 var myArray1 : [Any] = ["one", "two", "four"]
