@@ -24,6 +24,7 @@
     - [Positional arguemnts](#positional-arguemnts)
     - [Default Values as Variables](#default-values-as-variables)
     - [Map(), Fiter(), Zip(), Reduce()](#map-fiter-zip-reduce)
+  - [Generator Functions](#generator-functions)
   - [Ternary Operators](#ternary-operators)
 - [DocStrings on Functions](#docstrings-on-functions)
 - [Object Oriented Programming (refresher)](#object-oriented-programming-refresher)
@@ -54,6 +55,7 @@
   - [@ Decorator syntax (more research + links)](#-decorator-syntax-more-research--links)
   - [Mutability in Python and default parameters](#mutability-in-python-and-default-parameters)
     - [Default Params.](#default-params)
+- [Modules](#modules)
 - [Working With Files](#working-with-files)
     - [opening, reading, closing](#opening-reading-closing)
     - [with & as while working with files](#with--as-while-working-with-files)
@@ -989,6 +991,56 @@ def accumulate(acc, item):
 print(reduce(accumulate, nums, 0))
 
 # >> 21
+
+```
+
+---
+
+<br>
+
+## Generator Functions
+
+<br>
+
+Yield is something new here. Seems to save on memory by not running the complete function. You can continue the function by using next(function_name()) It also seems to hold the value in memory until it's called again.
+
+Really good for speed and memory storage.
+
+```py
+
+def generator_function(num):
+    for i in range(num):
+        yield i
+
+run_g = generator_function(10)
+print(next(run_g)) # 0
+print(next(run_g)) # 1
+print(next(run_g)) # 2
+
+# -----------------------------
+
+def generator_function(num):
+    for i in range(num):
+        yield i
+
+for item in generator_function(100):
+    print(item)
+
+```
+
+```py
+
+def fibonacci(num):
+    num_a = 0
+    num_b = 1
+    for i in range(num):
+        yield num_a
+        temp = num_a
+        num_a = num_b
+        num_b = temp + num_b
+
+for x in fibonacci(10):
+    print(x)
 
 ```
 
@@ -2345,6 +2397,16 @@ print(sam.grades)
 # >> []
 
 ```
+
+---
+
+<br>
+
+# Modules
+
+<br>
+
+asdasdasd
 
 ---
 
