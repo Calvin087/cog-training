@@ -1,6 +1,7 @@
 # Python Refresh
 
 - [Python Refresh](#python-refresh)
+  - [Bug Tracking](#bug-tracking)
   - [String Fromatting](#string-fromatting)
   - [User Input + Int / Str](#user-input--int--str)
   - [Lists / Tuples / Sets](#lists--tuples--sets)
@@ -59,12 +60,34 @@
 - [Working With Files](#working-with-files)
     - [opening, reading, closing](#opening-reading-closing)
     - [with & as while working with files](#with--as-while-working-with-files)
+- [Working With Directories](#working-with-directories)
+- [Working With Regular Expressions - more in another file](#working-with-regular-expressions---more-in-another-file)
 
 
 
 Todo List
 - Add GitBash to windows so that I can use familiar commands
 - Look at the [windows terminal](https://www.microsoft.com/en-us/p/windows-terminal/9n0dx20hk701?activetab=pivot:overviewtab) instead maybe??
+
+<br>
+
+## Bug Tracking
+
+<br>
+
+Allows me to insert bug tracking. While a failure occurs i'm able to check the values of variables to see what's going wrong. Probably much faster than printing all the time.
+
+```py
+
+import pdb
+
+pdb.set_trace()
+
+# Use 'step' to move to next line, continue to move to next error, 'a' to see all values
+
+```
+
+--------------
 
 <br>
 
@@ -2447,7 +2470,90 @@ Executing code on a file as if we're making a function using ```with``` and ```a
 
 ```py
 
+# Reading
 with open('test.txt', mode='r') as my_file:
     print(my_file.read())
+
+```
+
+Each time we write to a file, the cursor resets and starts writing from the beginning. __r+__ resets the cursor and starts writing.
+
+__w__ overwrites everything and starts writing. **IF** the file doesn't exist, __W__ creates a new file and saves it.
+
+```py
+
+# Reading & Writing
+with open('test.txt', mode='r+') as my_file:
+    text = my_file.write("Hey it's me")
+    print(my_file.read())
+
+```
+
+Append to file
+
+```py
+
+# Reading & Writing
+with open('test.txt', mode='a') as my_file:
+    text = my_file.write("Hey it's me")
+    print(my_file.read())
+
+```
+
+Errors finding files
+
+```py
+
+try:
+    with open('test.txt', mode='a') as my_file:
+        text = my_file.write("Hey it's me")
+        print(my_file.read())
+except FileNoteFouncError:
+    print("Something here")
+
+```
+
+---
+
+<br>
+
+# Working With Directories
+
+<br>
+
+We can use ```pathlib```, allows me to work with macs and windows machines and their directory formats.
+
+```py
+
+./sibling_folder/fileIWant.txt
+../parent_folder/fileIWant.txt
+
+```
+
+---
+
+<br>
+
+# Working With Regular Expressions - more in another file
+
+[Interactive Tutorial](https://regexone.com/) ``` - Weekend Homework```
+
+[link to cheatsheet](https://regex101.com/) ``` - quick reference / code generator```
+
+<br>
+
+```py
+
+import re
+
+pattern = re.compile('this')
+
+string = "Yo this is the string with this in it twice, this. Three times."
+
+a = pattern.findall(string)
+
+print(a)
+
+# >> ['this', 'this', 'this']
 
 ```
