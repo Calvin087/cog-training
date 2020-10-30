@@ -10,14 +10,16 @@ import UIKit
 class CodeViewController: UIViewController {
 
     @IBOutlet weak var definitionLabel: UILabel!
-    var term = "I like to code."
+    
+    var term = Term()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
-    title = term
+        title = term.name
+        definitionLabel.text = term.definition
         
     }
 }

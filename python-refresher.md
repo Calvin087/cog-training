@@ -110,6 +110,19 @@ print(message)
 
 ```
 
+```py
+
+def hello(name=''):
+    return f"Hello, {name.title() or 'World'}!"
+
+print(hello("Dave"))
+# >> Hello, Dave!
+
+print(hello())
+# >> Hello, World!
+
+```
+
 Another version of this to use later is to create a template. new_message is a template which can be called again and again with different values passed in.
 
 ```py
