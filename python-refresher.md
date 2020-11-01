@@ -60,6 +60,11 @@
 - [Working With Files](#working-with-files)
     - [opening, reading, closing](#opening-reading-closing)
     - [with & as while working with files](#with--as-while-working-with-files)
+    - [Methods that SAVE to csv](#methods-that-save-to-csv)
+    - [Methods that LOAD from csv](#methods-that-load-from-csv)
+    - [Methods that SAVE to JSON (better)?](#methods-that-save-to-json-better)
+    - [Methods that LOAD from csv](#methods-that-load-from-csv-1)
+    - [JSON *args **kwargs - Useful!](#json-args-kwargs---useful)
 - [Working With Directories](#working-with-directories)
 - [Working With Regular Expressions - more in another file](#working-with-regular-expressions---more-in-another-file)
 
@@ -2452,6 +2457,17 @@ asdasdasd
 
 <br>
 
+**Checking if a file exists**
+
+```py
+
+import os
+
+def file_exists(filename):
+    return os.path.isfile(filename)
+
+```
+
 This text file is in the same directory as the script. Took a few seconds for it to be able to index it before being able to read it without errors.
 
 > **Seeker**
@@ -2477,7 +2493,7 @@ my_file.close() # When you're done!
 
 ```
 
-Executing code on a file as if we're making a function using ```with``` and ```as```. This also automatically CLOSES the file once executed.
+Executing code on a file as if we're making a function using ```with``` and ```as```. This also automatically **CLOSES** the file once executed.
 
 ### with & as while working with files
 
@@ -2489,9 +2505,19 @@ with open('test.txt', mode='r') as my_file:
 
 ```
 
-Each time we write to a file, the cursor resets and starts writing from the beginning. __r+__ resets the cursor and starts writing.
+Each time we write to a file, the cursor resets and starts writing from the beginning. 
 
 __w__ overwrites everything and starts writing. **IF** the file doesn't exist, __W__ creates a new file and saves it.
+
+```py
+
+with open('test.txt', 'w') as f:
+    f.write("hello world")
+
+```
+
+__r+__ resets the cursor and starts writing.
+
 
 ```py
 
@@ -2525,6 +2551,120 @@ except FileNoteFouncError:
     print("Something here")
 
 ```
+
+### Methods that SAVE to csv
+
+```py
+
+def save_to_file(self):
+    with open(f"{self.name}.txt", 'w') as f: # File is named as the user's name
+        f.write(self.name + "\n" )
+
+        for movie in self.movies:
+            f.write(f"{move.name},{movie.genre},{str(movie.watched)} etc '\n'")
+            # self.movies.watched is a Boolean so have to string it.
+
+```
+
+### Methods that LOAD from csv
+
+Could possibly just use [the module ```csv```](https://www.youtube.com/watch?v=W7QByFjVom8&ab_channel=teclado) instead. csv.writer etc
+
+```py
+
+# a method on User, not really referencing the individual user themselves
+@classmethod
+def load_from_file(cls, filename):
+    with open(filename, 'r') as f:
+        content = f.readlines() # returns a LIST of file content
+        user_name = content[0]
+        movies = []
+
+        for line in content[1:]:
+            data = line.split(',') # we split because data was saved as {},{},{}
+            movies.append(Movie(data[0], data[1], data[2] == "True"))
+            # [2] is a string of a Bool, so we == to return a bool from STR
+            # creating new Movie object
+
+        user = cls(user_name)
+        user.movies = movies
+        return user
+
+        # --------------
+
+uesr = User.load_from_file('calvin.txt')
+print(user.name)
+print(user.movies)
+
+
+```
+
+### Methods that SAVE to JSON (better)?
+
+Basically a Python dictionary with lists in it. JSON supports ```Booleans```.
+
+```py
+
+# On Movie Class
+# Just returns a dictionary
+
+    # def m_json(self):
+    #     return {
+    #         'name': self.name,
+    #         'genre': self.genre,
+    #         'watched': self.watched
+    #     }
+
+# On User Class
+
+def to_json(self):
+    return {
+        'name': self.name,
+        'movies': [
+            movie.m_json() for movie in self.movies
+        ]
+    }
+
+    # --------------
+
+import json
+
+with open('calvin.txt', 'w') as f:
+    json.dump(user.to_json(), f)
+
+
+```
+
+### Methods that LOAD from csv
+
+```py
+
+# On User Class
+    # @classmethod
+    # def from_json(cls, data):
+    #     user = User(data['name'])
+    #     movies = []
+
+    #     for movie in data['movies']: # There's a list inside the json/dict file
+    #         movies.append(Movie(movie['name'], movie['genre'], movie['watched']))
+
+    #     user.movies = movies
+    #     return user
+
+# Next file
+import json
+
+with open('calvin.txt', 'r') as f:
+    data = json.load(f)
+    user = User.from_json(data) # passing dict to method called from_json() on User class
+
+
+```
+
+### JSON *args **kwargs - Useful!
+
+Using kwargs on JSON data is super useful. It uses the ```Keys``` as the name for ```named parameters``` 
+
 
 ---
 
