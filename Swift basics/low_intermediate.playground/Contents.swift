@@ -44,10 +44,34 @@ func addTwonums(num1 : Int, num2 : Int) -> Int {
 print(addTwonums(num1: 90, num2: 10))
 
 
+// Function Names - New info!!
+
+var nameList = ["Dave", "James", "Simon"]
+
+func position(of string: String, in array: [String]) -> Int {
+//    of is the 1st parameter, converted to name string
+//    in is the 2nd parameter, converted to name array
+    for i in 0..<array.count {
+        if array[i] == string {
+            return i
+        }
+    }
+    
+    return 0
+}
+
+let davepos = position(of: "Dave", in: nameList) // 0
+let jamespos = position(of: "James", in: nameList) // 1
+let simonpos = position(of: "Simon", in: nameList) // 2
+let bobpos = position(of: "Bob", in: nameList) // 0 problem
+
+
 // #=============
 // Optionals
 // Look up unwrapping optionals!!
 // Can be the defined value or nil
+
+//
 
 var age10 : Int? = 33
 var name10 : String? = "Sam"
@@ -67,3 +91,21 @@ func printOptional(text : String?) {
 }
 
 printOptional(text: "Hello")
+
+
+//------------------
+Optional
+
+func albumReleased(year: Int) -> String? {
+    switch year {
+    case 2006: return "Year 1"
+    case 2007: return "Year 2"
+    case 2008: return "Year 3"
+    default: return nil
+    }
+}
+
+let album = albumReleased(year: 2006)?.uppercased()
+// Everything after the  mark will run IF ng before is valid.
+print("The album is \(album)")
+
