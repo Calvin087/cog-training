@@ -13,6 +13,10 @@ class ViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
+        title = "StormViewer"
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
         
         let fm = FileManager.default // built in file system
         let path = Bundle.main.resourcePath! // set resource path of app bundle (my compiled app directory)
@@ -46,3 +50,4 @@ class ViewController: UITableViewController {
     }
 }
 
+}
