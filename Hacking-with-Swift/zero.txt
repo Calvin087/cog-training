@@ -1,0 +1,4 @@
+project 1 = tables, images, rows
+project 2 = images as buttons, button functions
+project 3 = project1 with share fun + write to photos plist
+project 4 = Browser, URL requests, option bottom bars
