@@ -15,3 +15,11 @@ from user import User
 # <User dave@sliame.com>
 
 # --------------
+
+cusomter2 = User("chill@sliame.com", "chill", "shill", None)
+cusomter2.save_to_db()
+user_from_db = User.load_from_db_by_email('chill@sliame.com')
+
+print(user_from_db)
+
+
