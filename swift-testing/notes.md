@@ -199,3 +199,18 @@ Tests drive the requirements for business logic...
 - set up method to test
 - see error
 - go write the method on the new class etc etc
+
+---------------
+
+### Accidently Adding Git, remove 
+
+**Manual Delete**
+
+Open Terminal and type
+
+```
+$ defaults write com.apple.finder AppleShowAllFiles TRUE
+$ killall Finder
+```
+
+simply open the project in finder delete the .git and .gitignore from root/ (Where project file is present)
