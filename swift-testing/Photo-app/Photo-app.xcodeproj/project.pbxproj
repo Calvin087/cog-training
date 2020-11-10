@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E8B59FA255AB8FA002C142D /* SignupConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8B59F9255AB8FA002C142D /* SignupConstants.swift */; };
 		3ECBA4E225555D9500F248FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBA4E125555D9500F248FC /* AppDelegate.swift */; };
 		3ECBA4E425555D9500F248FC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBA4E325555D9500F248FC /* SceneDelegate.swift */; };
 		3ECBA4E625555D9500F248FC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBA4E525555D9500F248FC /* ViewController.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3E8B59F9255AB8FA002C142D /* SignupConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupConstants.swift; sourceTree = "<group>"; };
 		3ECBA4DE25555D9500F248FC /* Photo-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Photo-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ECBA4E125555D9500F248FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3ECBA4E325555D9500F248FC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 				3ECBA4EC25555D9D00F248FC /* LaunchScreen.storyboard */,
 				3ECBA4EF25555D9D00F248FC /* Info.plist */,
 				3ECBA52A2555988B00F248FC /* SignupFormModelValidatorTests.swift */,
+				3E8B59F9255AB8FA002C142D /* SignupConstants.swift */,
 			);
 			path = "Photo-app";
 			sourceTree = "<group>";
@@ -206,6 +209,7 @@
 				3ECBA4E625555D9500F248FC /* ViewController.swift in Sources */,
 				3ECBA4E225555D9500F248FC /* AppDelegate.swift in Sources */,
 				3ECBA52B2555988B00F248FC /* SignupFormModelValidatorTests.swift in Sources */,
+				3E8B59FA255AB8FA002C142D /* SignupConstants.swift in Sources */,
 				3ECBA4E425555D9500F248FC /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -200,7 +200,22 @@ Tests drive the requirements for business logic...
 - see error
 - go write the method on the new class etc etc
 
----------------
+</br>
+
+---------------------
+
+</br>
+
+## Testing Code In Isolation
+
+asdasd
+
+</br>
+
+---------------------
+
+</br>
+
 
 ### Accidently Adding Git, remove 
 
