@@ -67,7 +67,7 @@
     - [JSON *args **kwargs - Useful!](#json-args-kwargs---useful)
 - [Working With Directories](#working-with-directories)
 - [Working With Regular Expressions - more in another file](#working-with-regular-expressions---more-in-another-file)
-- [Run Pythong with VENV at last](#run-pythong-with-venv-at-last)
+- [Run Pythong with VENV - 100% working](#run-pythong-with-venv---100-working)
 
 
 
@@ -2716,7 +2716,7 @@ print(a)
 
 <br>
 
-# Run Pythong with VENV at last
+# Run Pythong with VENV - 100% working
 
 <br>
 
@@ -2725,12 +2725,16 @@ print(a)
 - Shebang line
 - Source of venv activation code
 - interpreter then file name
+- Use abs pathnames to save things in the main file
 
 ```sh
-#!/usr/bin/env bash
+#!/bin/bash
 
 source /Users/me/myScripts/bnkroll/venv/bin/activate
 
 python3 /Users/me/myScripts/bnkroll/main.py
 
 ```
+
+
+
