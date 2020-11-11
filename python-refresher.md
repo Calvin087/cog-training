@@ -67,6 +67,7 @@
     - [JSON *args **kwargs - Useful!](#json-args-kwargs---useful)
 - [Working With Directories](#working-with-directories)
 - [Working With Regular Expressions - more in another file](#working-with-regular-expressions---more-in-another-file)
+- [Run Pythong with VENV at last](#run-pythong-with-venv-at-last)
 
 
 
@@ -2708,5 +2709,28 @@ a = pattern.findall(string)
 print(a)
 
 # >> ['this', 'this', 'this']
+
+```
+
+---
+
+<br>
+
+# Run Pythong with VENV at last
+
+<br>
+
+- create .command file.
+- Make executable chmod u+x filename.command / .py for good measure.
+- Shebang line
+- Source of venv activation code
+- interpreter then file name
+
+```sh
+#!/usr/bin/env bash
+
+source /Users/me/myScripts/bnkroll/venv/bin/activate
+
+python3 /Users/me/myScripts/bnkroll/main.py
 
 ```
