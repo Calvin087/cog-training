@@ -67,7 +67,8 @@
     - [JSON *args **kwargs - Useful!](#json-args-kwargs---useful)
 - [Working With Directories](#working-with-directories)
 - [Working With Regular Expressions - more in another file](#working-with-regular-expressions---more-in-another-file)
-- [Run Pythong with VENV - 100% working](#run-pythong-with-venv---100-working)
+- [Run Python without VENV - 100% working](#run-python-without-venv---100-working)
+- [Run python files from other files](#run-python-files-from-other-files)
 
 
 
@@ -2716,7 +2717,7 @@ print(a)
 
 <br>
 
-# Run Pythong with VENV - 100% working
+# Run Python without VENV - 100% working
 
 <br>
 
@@ -2732,9 +2733,38 @@ print(a)
 
 source /Users/me/myScripts/bnkroll/venv/bin/activate
 
-python3 /Users/me/myScripts/bnkroll/main.py
+python3 /Users/me/myScripts/xyz/main.py
 
 ```
 
+Add this to Automator to set up an application. MacOsX can run this application as an alert.
+
+```py
+
+tell application "Terminal"
+	reopen
+	activate
+	do script "/Users/me/myScripts/xyz.command"
+end tell
+
+```
+
+---
+
+<br>
+
+# Run python files from other files
+
+<br>
 
 
+```py
+
+import subprocess
+
+python_path = "....Versions/3.9/bin/python3" # full path
+file = "....hello.py" # full path
+
+subprocess.Popen([python_path, file, "dave", "sam"])
+
+```
