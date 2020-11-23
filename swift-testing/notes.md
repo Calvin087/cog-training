@@ -206,9 +206,11 @@ Tests drive the requirements for business logic...
 
 </br>
 
-## Testing Code In Isolation
+## Insecure HTTP requests
 
-asdasd
+- info.plist
+- Add new line ```App transport security settings```
+- ```Allow arbitrary loads``` = Yes
 
 </br>
 
