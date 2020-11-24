@@ -25,6 +25,7 @@ class SignupWebServiceTests: XCTestCase {
         sut = nil
         signFormRequestModel = nil
         MockURLProtocol.stubResponseData = nil
+        MockURLProtocol.error = nil
     }
 
     func testSignupWebService_WhenGivenSuccessfullResponse_ReturnsSuccess() {
@@ -79,6 +80,23 @@ class SignupWebServiceTests: XCTestCase {
         sut.signup(withForm: signFormRequestModel) { (signupResponseModel, error) in
             XCTAssertEqual(error, SignupError.invalidRequestURLString, "The signup() method did not return an expected error for a invalidRequestURLString error")
             XCTAssertNil(signupResponseModel, "When an invalidRequestURLString taks place, the response model must be nil")
+            expectation.fulfill()
+        }
+        
+        self.wait(for: [expectation], timeout: 2)
+    }
+    
+    func testSignupWebService_WhenURLRequestFails_ReturnsErrorMessageDescription(){
+        
+        let expectation = self.expectation(description: "a failed request expectation")
+        let errorDescription = "A localized description of an error"
+        
+        MockURLProtocol.error = SignupError.failedRequest(description: errorDescription)
+        
+        sut.signup(withForm: signFormRequestModel) { (signupResponseModel, error) in
+            
+            XCTAssert(error, SignupError.failedRequest(description:errorDescription), "something else")
+//            XCTAssertEqual(error?.localizedDescription, errorDescription)
             expectation.fulfill()
         }
         
